@@ -2,6 +2,7 @@ import sys
 import skimage
 from pathlib import Path
 import numpy as np
+import typer
 
 def process_image_file(in_path, out_path):
     """ Adds some random noise to an image to augment it. """
