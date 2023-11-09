@@ -14,7 +14,7 @@ class Generator(ABC):
     def __int__(self):
         self.type = "abstract"
 
-    def generate(self):
+    def generate(self, output_file_path):
         """
         Generates an artefact and returns it
         """
