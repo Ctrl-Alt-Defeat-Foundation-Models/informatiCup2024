@@ -4,18 +4,18 @@ app = typer.Typer()
 
 
 @app.command()
-def generate():
-    print("generating")
+def generate(generator: str, output_file_path: str):
+    typer.echo("Error given generator not available", err=True)
 
 
 @app.command()
-def process():
-    print("processing")
+def process(processor: str, input_file: str, output_file: str):
+    typer.echo("Error given processor not available", err=True)
 
 
 @app.command()
-def evaluate():
-    print("evaluating")
+def evaluate(evaluator: str, input_file_path: str):
+    typer.echo("Error given evaluator not available", err=True)
 
 
 if __name__ == "__main__":
