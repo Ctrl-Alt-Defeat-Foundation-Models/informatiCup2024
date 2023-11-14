@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fool-ai-detector"
+version = "0.0.1"
+authors = [
+    { name="Raphael Weber"},
+    { name="Max Buchholz"},
+    { name="Lukas Müller"},
+    { name="Levi Otterbach"},
+]
+description = "Fooling ai detectors"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Ctrl-Alt-Defeat-Foundation-Models/informatiCup2024"
+
+[project.scripts]
+fad = "main:app"
