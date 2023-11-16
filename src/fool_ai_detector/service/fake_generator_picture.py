@@ -17,7 +17,7 @@ class FakeGeneratorPicture(Generator):
 
     def generate(self, output_file_path):
         """
-           Method that takes one random image of the ai_gen_image directory and puts it in another directory.
+        Method that takes one random image of the ai_gen_image directory and puts it in another directory.
         """
         random_image_index = random.randint(0, len(self.images) - 1)
         random_image_path = self.images[random_image_index]
