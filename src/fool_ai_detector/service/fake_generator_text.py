@@ -17,7 +17,7 @@ class FakeGeneratorText(Generator):
 
     def generate(self, output_file_path):
         """
-           Method that takes one random text of the ai_gen_text directory and puts it in another directory.
+        Method that takes one random text of the ai_gen_text directory and puts it in another directory.
         """
         random_text_index = random.randint(0, len(self.texts) - 1)
         random_text_path = self.texts[random_text_index]
