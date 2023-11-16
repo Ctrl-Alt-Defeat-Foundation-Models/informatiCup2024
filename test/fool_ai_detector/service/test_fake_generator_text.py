@@ -28,7 +28,7 @@ class TestFakeGeneratorText:
 
     def clear_test_output(self):
         """
-            Helper method: This method makes clears the test output folder.
+        Helper method: This method makes clears the test output folder.
         """
         filelist = os.listdir(self.output_file_path)
         for file in filelist:
