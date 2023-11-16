@@ -9,7 +9,7 @@ class TestFakeGeneratorText:
 
     def set_up(self):
         """
-            Helper method: This method creates the output test folder.
+        Helper method: This method creates the output test folder.
         """
         if not os.path.exists(self.output_file_path):
             os.mkdir(self.output_file_path)
