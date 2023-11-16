@@ -2,17 +2,18 @@ import skimage
 import os
 import random
 
-from model.generator import Generator
+from fool_ai_detector.model.generator import Generator
 
 
 class FakeGeneratorPicture(Generator):
-    dir_path = "../../example/ai_gen_images/"
+    base_path_this_class = os.path.dirname(os.path.abspath(__file__))
+    dir_path = os.path.join(base_path_this_class, '..', 'resources', 'ai_gen_images')
     images = []
 
     def __init__(self):
         for image in os.listdir(self.dir_path):
             if os.path.isfile(os.path.join(self.dir_path, image)):
-                self.images.append(self.dir_path + image)
+                self.images.append(os.path.join(self.dir_path, image))
 
     def generate(self, output_file_path):
         """
@@ -20,11 +21,11 @@ class FakeGeneratorPicture(Generator):
         """
         random_image_index = random.randint(0, len(self.images) - 1)
         random_image_path = self.images[random_image_index]
-        random_image_name = random_image_path.split("/")[-1]
+        random_image_name = os.path.basename(random_image_path)
         random_image = skimage.io.imread(random_image_path)
         if not os.path.exists(output_file_path):
             os.mkdir(output_file_path)
-        skimage.io.imsave(output_file_path + random_image_name, random_image, check_contrast=False)
+        skimage.io.imsave(os.path.join(output_file_path, random_image_name), random_image, check_contrast=False)
 
 
 

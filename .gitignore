@@ -240,4 +240,4 @@ fabric.properties
 
 # custom
 /output/**
-/test_output/**
+/test/test_output/**

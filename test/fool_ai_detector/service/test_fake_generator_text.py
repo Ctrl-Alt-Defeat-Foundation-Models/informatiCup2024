@@ -1,23 +1,28 @@
-from service.fake_generator_text import FakeGeneratorText
-import unittest
+from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
+import pytest
 import os
 
 
-class TestFakeGeneratorText(unittest.TestCase):
-    output_file_path = "../../test_output/fake_generator_texts/"
+class TestFakeGeneratorText:
+    base_path_this_class = os.path.dirname(os.path.abspath(__file__))
+    output_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output', 'fake_generator_texts')
 
-    def setUp(self):
+    def set_up(self):
+        """
+            Helper method: This method creates the output test folder.
+        """
         if not os.path.exists(self.output_file_path):
             os.mkdir(self.output_file_path)
 
     def test_normal_generation(self):
+        self.set_up()
         self.clear_test_output()
 
         fake_generator = FakeGeneratorText()
         fake_generator.generate(self.output_file_path)
 
         filelist = os.listdir(self.output_file_path)
-        self.assertEqual(len(filelist), 1)
+        assert len(filelist) == 1
 
         self.clear_test_output()
 
