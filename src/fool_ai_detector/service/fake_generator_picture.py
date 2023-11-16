@@ -27,5 +27,3 @@ class FakeGeneratorPicture(Generator):
             os.mkdir(output_file_path)
         skimage.io.imsave(os.path.join(output_file_path, random_image_name), random_image, check_contrast=False)
 
-
-
