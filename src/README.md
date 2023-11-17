@@ -1,9 +1,16 @@
-# How to install command line
+## Usage
 
-You can install the command line by using the command `pip install -e`
+### Prerequisites
 
-# How to run the command line
+```bash
+pip install -e .
+cd..
+```
 
-You can see all the possible command using the command `fad --help`
+### How to run the command line
 
-General commands are: `fad generate ...`, `fad process`, `fad evaluate`
+You can see all the possible command using the command 
+```bash
+fad --help
+```
+General commands are: `fad generate ...`, `fad process ...`, `fad evaluate ...`
