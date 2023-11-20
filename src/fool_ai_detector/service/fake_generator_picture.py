@@ -24,6 +24,6 @@ class FakeGeneratorPicture(Generator):
         random_image_name = os.path.basename(random_image_path)
         random_image = skimage.io.imread(random_image_path)
         if not os.path.exists(output_file_path):
-            os.mkdir(output_file_path)
+            os.makedirs(output_file_path)
         skimage.io.imsave(os.path.join(output_file_path, random_image_name), random_image, check_contrast=False)
 
