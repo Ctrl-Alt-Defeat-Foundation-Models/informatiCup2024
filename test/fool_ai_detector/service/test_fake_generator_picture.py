@@ -12,7 +12,7 @@ class TestFakeGeneratorPicture:
         Helper method: This method creates the output test folder.
         """
         if not os.path.exists(self.output_file_path):
-            os.mkdir(self.output_file_path)
+            os.makedirs(self.output_file_path)
 
     def test_normal_generation(self):
         self.set_up()
