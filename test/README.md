@@ -6,7 +6,7 @@ pip install pytest
 ```
 after changes in pyproject.toml do:
 ```bash
-cd .. && pip install -e .
+cd .. ; pip install -e .
 
 ```
 ### Tests
