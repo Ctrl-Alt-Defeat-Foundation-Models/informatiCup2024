@@ -24,7 +24,7 @@ class FakeGeneratorText(Generator):
         random_text_name = os.path.basename(random_text_path)
         random_text = Path(random_text_path).read_text()
         if not os.path.exists(output_file_path):
-            os.mkdir(output_file_path)
+            os.makedirs(output_file_path)
         Path(os.path.join(output_file_path, random_text_name)).write_text(random_text)
 
 
