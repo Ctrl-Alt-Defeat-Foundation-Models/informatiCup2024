@@ -10,7 +10,7 @@ class Evaluator(ABC):
     Base class for an Evaluator
     """
 
-    def evaluate(self, input_file_path):
+    def evaluate(self, input_file_path) -> bool:
         """
         Evaluates a given artifact based on the specific detector
         """
