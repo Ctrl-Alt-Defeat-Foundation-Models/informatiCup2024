@@ -1,7 +1,7 @@
 """
 Evaluator based on the roberta_base_openai_detector
 """
-from model.evaluator import Evaluator
+from fool_ai_detector.model.evaluator import Evaluator
 from transformers import pipeline
 
 
@@ -14,7 +14,8 @@ class RobertaBaseEvaluator(Evaluator):
         """
         Evaluates a given text based on the specific detector
         """
-        text = input_file_path.read_text()
+        file = open(input_file_path, "r")
+        text = file.read()
         pipe = pipeline("text-classification", model="roberta-base-openai-detector")
         output = pipe(text)
         label = output[0]["label"]

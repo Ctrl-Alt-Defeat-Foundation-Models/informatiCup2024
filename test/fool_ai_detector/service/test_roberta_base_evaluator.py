@@ -1,4 +1,4 @@
-from fool_ai_detector.service.roberta_base_evaluator import RobertaBaseEvaluator
+from fool_ai_detector.service.roberta_base_openai_detector import RobertaBaseEvaluator
 import os
 
 
@@ -23,6 +23,9 @@ class TestRobertaBaseEvaluator:
         self.set_up()
 
         fake_generator = RobertaBaseEvaluator()
-        is_fake = fake_generator.evaluate("berlin.txt")
+        is_fake = fake_generator.evaluate(os.path.join(".", "berlin.txt"))
 
         assert is_fake
+
+        if os.path.exists(os.path.join(".", "berlin.txt")):
+            os.remove(os.path.join(".", "berlin.txt"))
