@@ -38,6 +38,6 @@ class TestNaiveBaselineProcessorPicture:
         """
         Helper method: This method clears the used test folders.
         """
-        filelist_output = os.listdir(self.output_processor_file_path)
+        filelist_output = os.listdir(self.output_processor_directory_path)
         for file in filelist_output:
-            os.remove(os.path.join(self.output_processor_file_path, file))
+            os.remove(os.path.join(self.output_processor_directory_path, file))
