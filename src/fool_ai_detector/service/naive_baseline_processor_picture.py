@@ -17,4 +17,4 @@ class NaiveBaselineProcessorImage(Processor):
         # convert pixel representation from [0..1] to [0..255]
         processed_image = (processed_image * 255).astype(np.uint8)
         # save image to given location
-        skimage.io.imsave(os.path.join(output_file_path, 'naive_processed_picture.png'), processed_image, check_contrast=False)
+        skimage.io.imsave(output_file_path, processed_image, check_contrast=False)
