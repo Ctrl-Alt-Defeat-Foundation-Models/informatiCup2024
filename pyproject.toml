@@ -9,7 +9,7 @@ authors = [
     { name="Raphael Weber"},
     { name="Max Buchholz"},
     { name="Lukas Müller"},
-    { name="Levi Otterbach"}
+    { name="Levi Otterbach"},
 ]
 description = "Fooling ai detectors"
 readme = "README.md"
@@ -20,5 +20,12 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+dependencies = [
+    "typer[all]"
+]
+
 [project.urls]
 "Homepage" = "https://github.com/Ctrl-Alt-Defeat-Foundation-Models/informatiCup2024"
+
+[project.scripts]
+fad = "main:app"
