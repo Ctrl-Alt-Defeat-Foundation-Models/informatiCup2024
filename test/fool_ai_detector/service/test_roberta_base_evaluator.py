@@ -1,4 +1,4 @@
-from fool_ai_detector.service.roberta_base_openai_detector import RobertaBaseEvaluator
+from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
 import os
 
 
