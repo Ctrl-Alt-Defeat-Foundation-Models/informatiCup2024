@@ -1,6 +1,6 @@
-import math
 import os
 import skimage.io
+import numpy
 
 from fool_ai_detector.service.naive_baseline_processor_picture import NaiveBaselineProcessorImage
 
@@ -30,7 +30,7 @@ class TestNaiveBaselineProcessorPicture:
         image_input = skimage.io.imread(self.output_generator_file_path)
         image_output = skimage.io.imread(self.output_processor_file_path)
 
-        assert not math.isinf(skimage.metrics.peak_signal_noise_ratio(image_input, image_output))
+        assert not numpy.array_equal(image_input, image_output)
 
         self.clear_test_output()
 
