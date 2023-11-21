@@ -19,11 +19,11 @@ class TestRobertaBaseEvaluator:
         with open("berlin.txt", "w") as text_file:
             text_file.write(self.TEST_TEXT)
 
-    def test_normal_generation(self):
+    def test_normal_evaluation(self):
         self.set_up()
 
-        fake_generator = RobertaBaseEvaluator()
-        is_fake = fake_generator.evaluate(os.path.join(".", "berlin.txt"))
+        roberta_evaluator = RobertaBaseEvaluator()
+        is_fake = roberta_evaluator.evaluate(os.path.join(".", "berlin.txt"))
 
         assert is_fake
 
