@@ -13,6 +13,7 @@ class RobertaBaseEvaluator(Evaluator):
     def evaluate(self, input_file_path) -> bool:
         """
         Evaluates a given text based on the specific detector
+        :param input_file_path: path to the file, that should be evaluated
         """
         file = open(input_file_path, "r")
         text = file.read()
