@@ -14,6 +14,7 @@ class RobertaBaseEvaluator(Evaluator):
         """
         Evaluates a given text based on the specific detector
         :param input_file_path: path to the file, that should be evaluated
+        :return: bool; true = fake, false = real
         """
         file = open(input_file_path, "r")
         text = file.read()
