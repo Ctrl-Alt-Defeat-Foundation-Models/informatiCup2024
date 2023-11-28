@@ -5,7 +5,7 @@ import random
 from fool_ai_detector.model.generator import Generator
 
 
-class FakeGeneratorPicture(Generator):
+class FakeGeneratorImage(Generator):
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     dir_path = os.path.join(base_path_this_class, '..', 'resources', 'ai_gen_images')
     images = []
