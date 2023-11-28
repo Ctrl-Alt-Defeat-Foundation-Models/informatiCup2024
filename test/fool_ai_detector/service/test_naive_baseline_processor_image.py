@@ -2,17 +2,17 @@ import os
 import skimage.io
 import numpy
 
-from fool_ai_detector.service.naive_baseline_processor_picture import NaiveBaselineProcessorImage
+from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
 
 
-class TestNaiveBaselineProcessorPicture:
+class TestNaiveBaselineProcessorImage:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_generator_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',
                                               'fool_ai_detector', 'resources', 'ai_gen_images', 'clownfish.png')
     output_processor_directory_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                                   'naive_processor_pictures')
+                                                   'naive_processor_images')
     output_processor_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                              'naive_processor_pictures', 'processed_clownfish.png')
+                                              'naive_processor_images', 'processed_clownfish.png')
 
     def set_up(self):
         """
