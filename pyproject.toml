@@ -21,7 +21,8 @@ classifiers = [
 ]
 
 dependencies = [
-    "typer[all]"
+    "typer[all]",
+    "scikit-image"
 ]
 
 [project.urls]
