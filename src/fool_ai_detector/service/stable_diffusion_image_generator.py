@@ -4,6 +4,7 @@ Generator based on the Stable Diffusion model
 import skimage
 import torch
 from diffusers import StableDiffusionPipeline
+
 from fool_ai_detector.model.generator import Generator
 
 
