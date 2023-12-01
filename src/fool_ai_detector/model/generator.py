@@ -15,7 +15,7 @@ class Generator(ABC):
         self.type = "abstract"
 
     @abstractmethod
-    def generate(self, output_file_path):
+    def generate(self, prompt, output_file_path):
         """
         Generates an artefact and returns it
         """

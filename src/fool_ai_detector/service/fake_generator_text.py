@@ -15,7 +15,7 @@ class FakeGeneratorText(Generator):
             if os.path.isfile(os.path.join(self.dir_path, text)):
                 self.texts.append(os.path.join(self.dir_path, text))
 
-    def generate(self, output_file_path):
+    def generate(self, prompt, output_file_path):
         """
         Method that takes one random text of the ai_gen_text directory and puts it in another directory.
         """

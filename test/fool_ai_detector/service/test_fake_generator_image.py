@@ -19,7 +19,7 @@ class TestFakeGeneratorImage:
         self.clear_test_output()
 
         fake_generator = FakeGeneratorImage()
-        fake_generator.generate(self.output_file_path)
+        fake_generator.generate("no prompt", self.output_file_path)
 
         filelist = os.listdir(self.output_file_path)
         assert len(filelist) == 1
