@@ -1,8 +1,6 @@
 """
 Generator based on the Stable Diffusion model
 """
-from PIL import Image
-import torch
 from diffusers import StableDiffusionPipeline
 
 from fool_ai_detector.model.generator import Generator
