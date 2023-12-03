@@ -1,7 +1,7 @@
 """
 Generator based on the Stable Diffusion model
 """
-import skimage
+from PIL import Image
 import torch
 from diffusers import StableDiffusionPipeline
 
@@ -20,8 +20,7 @@ class StableDiffusionImageGenerator(Generator):
         :param output_file_path: Path, where the generated image is saved
         """
 
-        pipe = StableDiffusionPipeline.from_pretrained("runwayml/stable-diffusion-v1-5", torch_dtype=torch.float16)
-        pipe = pipe.to("cuda")
+        pipe = StableDiffusionPipeline.from_pretrained("runwayml/stable-diffusion-v1-5", use_safetensors=True)
 
         image = pipe(prompt).images[0]
-        skimage.io.imsave(output_file_path, image, check_contrast=False)
+        image.save(output_file_path)
