@@ -15,8 +15,10 @@ class Generator(ABC):
         self.type = "abstract"
 
     @abstractmethod
-    def generate(self, output_file_path):
+    def generate(self, output_file_path, prompt=""):
         """
         Generates an artefact and returns it
+        :param output_file_path: Path, where the generated file should be written to
+        :param prompt: Text (multiple words, sentences) defining the theme of the generated element
         """
         pass
