@@ -10,8 +10,7 @@ class TestNaiveBaselineProcessorText:
                                               'fool_ai_detector', 'resources', 'ai_gen_text', 'alpen.txt')
     output_processor_directory_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
                                                    'naive_processor_texts')
-    output_processor_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                              'naive_processor_images', 'processed_alpen.txt')
+    output_processor_file_path = os.path.join(output_processor_directory_path, 'processed_alpen.txt')
 
     def set_up(self):
         """
