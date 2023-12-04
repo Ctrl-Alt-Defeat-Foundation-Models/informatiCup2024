@@ -19,8 +19,8 @@ class TestStableDiffusionImageGenerator:
         self.set_up()
         self.clear_test_output()
 
-        fake_generator = StableDiffusionImageGenerator()
-        fake_generator.generate("Generate a realistic image of a cat on a bike",
+        stable_diffusion_generator = StableDiffusionImageGenerator()
+        stable_diffusion_generator.generate("Generate a realistic image of a cat on a bike",
                                 os.path.join(self.output_file_path, 'test_image.png'))
 
         filelist = os.listdir(self.output_file_path)
