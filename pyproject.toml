@@ -23,7 +23,8 @@ classifiers = [
 dependencies = [
     "typer[all]",
     "transformers[torch]",
-    "scikit-image"
+    "scikit-image",
+    "diffusers[StableDiffusionPipeline]"
 ]
 
 [project.urls]
