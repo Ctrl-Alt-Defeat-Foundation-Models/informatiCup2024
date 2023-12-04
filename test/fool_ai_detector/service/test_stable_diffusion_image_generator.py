@@ -20,8 +20,8 @@ class TestStableDiffusionImageGenerator:
         self.clear_test_output()
 
         stable_diffusion_generator = StableDiffusionImageGenerator()
-        stable_diffusion_generator.generate("Generate a realistic image of a cat on a bike",
-                                            os.path.join(self.output_file_path, 'test_image.png'))
+        stable_diffusion_generator.generate(os.path.join(self.output_file_path, 'test_image.png'),
+                                            "Generate a realistic image of a cat on a bike")
 
         filelist = os.listdir(self.output_file_path)
         assert len(filelist) == 1

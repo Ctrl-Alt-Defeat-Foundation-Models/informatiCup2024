@@ -11,7 +11,7 @@ class StableDiffusionImageGenerator(Generator):
     Base class for a Generator
     """
 
-    def generate(self, prompt, output_file_path):
+    def generate(self, output_file_path, prompt="Generate a realistic random image"):
         """
         Generates an image out of a prompt
         :param prompt: Prompt to generate the image from
