@@ -3,6 +3,7 @@ import skimage
 from pathlib import Path
 import numpy as np
 
+
 def process_image_file(in_path, out_path):
     """ Adds some random noise to an image to augment it. """
     # read image file, 
@@ -14,6 +15,7 @@ def process_image_file(in_path, out_path):
     # save image to given location
     skimage.io.imsave(out_path, augmented_image, check_contrast=False)
 
+
 def process_text_file(in_path, out_path):
     """ Replaces every occurrence of a white space with double white space to augment a text. """
     # open and read a text file
@@ -23,9 +25,10 @@ def process_text_file(in_path, out_path):
     # save text as file to given location
     out_path.write_text(augmented_text)
 
+
 if __name__ == '__main__':
     # check if an input and an output file path was given
-    assert len(sys.argv) == 3 
+    assert len(sys.argv) == 3
 
     # get the given input and output file paths and save them in a variable
     input_filepath = Path(sys.argv[1])
@@ -42,4 +45,3 @@ if __name__ == '__main__':
         process_text_file(input_filepath, output_filepath)
     elif input_filepath.suffix in ('.png', '.jpg'):
         process_image_file(input_filepath, output_filepath)
-    
