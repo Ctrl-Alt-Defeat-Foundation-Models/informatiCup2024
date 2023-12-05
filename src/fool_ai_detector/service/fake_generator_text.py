@@ -15,9 +15,11 @@ class FakeGeneratorText(Generator):
             if os.path.isfile(os.path.join(self.dir_path, text)):
                 self.texts.append(os.path.join(self.dir_path, text))
 
-    def generate(self, output_file_path):
+    def generate(self, output_file_path, prompt="nothing"):
         """
         Method that takes one random text of the ai_gen_text directory and puts it in another directory.
+        :param output_file_path: Path, where the generated image should be written to
+        :param prompt: Text (multiple words, sentences) defining the theme of the generated text.
         """
         random_text_index = random.randint(0, len(self.texts) - 1)
         random_text_path = self.texts[random_text_index]
@@ -26,6 +28,3 @@ class FakeGeneratorText(Generator):
         if not os.path.exists(output_file_path):
             os.makedirs(output_file_path)
         Path(os.path.join(output_file_path, random_text_name)).write_text(random_text)
-
-
-
