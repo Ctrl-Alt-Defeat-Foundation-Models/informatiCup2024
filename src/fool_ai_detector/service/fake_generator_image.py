@@ -15,6 +15,7 @@ class FakeGeneratorImage(Generator):
             if os.path.isfile(os.path.join(self.dir_path, image)):
                 self.images.append(os.path.join(self.dir_path, image))
 
+                
     def generate(self, output_file_path, prompt="nothing"):
         """
         Method that takes one random image of the ai_gen_image directory and puts it in another directory.
