@@ -22,6 +22,8 @@ class FakeGeneratorImage(Generator):
         :param output_file_path: Path, where the generated image should be written to
         :param prompt: Text (multiple words, sentences) defining the theme of the generated image.
         """
+        if output_file_path.endswith('png') or output_file_path.endswith('jpg') or output_file_path.endswith('jpeg'):
+            output_file_path = os.path.dirname(output_file_path)
         random_image_index = random.randint(0, len(self.images) - 1)
         random_image_path = self.images[random_image_index]
         random_image_name = os.path.basename(random_image_path)
