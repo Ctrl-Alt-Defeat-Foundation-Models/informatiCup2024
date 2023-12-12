@@ -61,15 +61,15 @@ def evaluate(evaluator: str, input_file_path: str):
     if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg') and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.echo("This image is generated")
+            typer.echo("---> This image is generated")
         else:
-            typer.echo("This image is not generated")
+            typer.echo("---> This image is not generated")
     elif input_file_path.endswith('txt') and evaluator.endswith('text'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.echo("This text is generated")
+            typer.echo("---> This text is generated")
         else:
-            typer.echo("This text is not generated")
+            typer.echo("---> This text is not generated")
     else:
         typer.echo("The format of the file is not consistent with the format of the processor", err=True)
         raise typer.Exit()
@@ -87,6 +87,7 @@ def pipeline(generator: str, processor: str, evaluator: str):
         second_file = "pipeline_folder/augmented_image.png"
     generate(generator, first_file)
     process(processor, first_file, second_file)
+    evaluate(evaluator, first_file)
     evaluate(evaluator, second_file)
 
 
