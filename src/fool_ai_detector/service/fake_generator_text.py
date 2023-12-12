@@ -24,4 +24,5 @@ class FakeGeneratorText(Generator):
         random_text_index = random.randint(0, len(self.texts) - 1)
         random_text_path = self.texts[random_text_index]
         random_text = Path(random_text_path).read_text()
+        print(output_file_path)
         Path(output_file_path).write_text(random_text)
