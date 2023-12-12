@@ -20,7 +20,7 @@ def generate(generator: str, output_file_path: str):
         case "fake_generator_image":
             typer.echo("Using fake_generator_image")
             generator_model = FakeGeneratorImage()
-        case ("stable_generator_image"):
+        case ("stable_diffusion_generator_image"):
             typer.echo("Using stable_diffusion_generator")
             generator_model = StableDiffusionImageGenerator()
         case _:
