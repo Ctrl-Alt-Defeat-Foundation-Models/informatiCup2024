@@ -14,7 +14,7 @@ fad --help
 ```
 General commands are: `fad generate ...`, `fad process ...`, `fad evaluate ...`
 
-Types of generators: `fake_generator_text`, `fake_generator_image`, `stable_generator_image`
+Types of generators: `fake_generator_text`, `fake_generator_image`, `stable_diffusion_generator_image`
 Types of processors: `naive_processor_text`, `naive_processor_image`
 Types of evaluators: `roberta_evaluator_text`, `umm_maybe_evaluator_image`
 
