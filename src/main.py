@@ -6,6 +6,7 @@ from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselin
 from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaselineProcessorText
 from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
 from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
+from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
 
 app = typer.Typer()
 
@@ -19,6 +20,9 @@ def generate(generator: str, output_file_path: str):
         case "fake_generator_image":
             typer.echo("Using fake_generator_image")
             generator_model = FakeGeneratorImage()
+        case ("stable_generator_image"):
+            typer.echo("Using stable_diffusion_generator")
+            generator_model = StableDiffusionImageGenerator()
         case _:
             typer.echo("Error given generator not available", err=True)
             raise typer.Exit()
