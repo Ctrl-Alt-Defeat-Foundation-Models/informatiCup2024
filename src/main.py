@@ -5,6 +5,7 @@ from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
 from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaselineProcessorText
 from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
+from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
 
 app = typer.Typer()
 
@@ -51,20 +52,27 @@ def evaluate(evaluator: str, input_file_path: str):
         case "roberta_evaluator_text":
             typer.echo("Using roberta_base_openai_evaluator")
             evaluator_model = RobertaBaseEvaluator()
+        case "umm_maybe_evaluator_image":
+            typer.echo("Using umm_maybe_base_evaluator")
+            evaluator_model = UmmMaybeEvaluator()
         case _:
             typer.echo("Error given evaluator not available", err=True)
             raise typer.Exit()
     if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg') and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
+        if is_fake:
+            typer.echo("This image is generated")
+        else:
+            typer.echo("This image is not generated")
     elif input_file_path.endswith('txt') and evaluator.endswith('text'):
         is_fake = evaluator_model.evaluate(input_file_path)
+        if is_fake:
+            typer.echo("This text is generated")
+        else:
+            typer.echo("This text is not generated")
     else:
         typer.echo("The format of the file is not consistent with the format of the processor", err=True)
         raise typer.Exit()
-    if is_fake:
-        typer.echo("This text is generated")
-    else:
-        typer.echo("This text is not generated")
 
 
 @app.command()
