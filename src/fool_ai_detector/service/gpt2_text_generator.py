@@ -3,6 +3,7 @@ Generator based on the GPT2 model
 """
 from pathlib import Path
 
+import torch.cuda
 from transformers import pipeline
 
 from fool_ai_detector.model.generator import Generator
@@ -19,8 +20,10 @@ class GPT2TextGenerator(Generator):
         :param prompt: Prompt to generate the text from
         :param output_file_path: Path, where the generated text is saved
         """
-        pipe = pipeline("text-generation", model="gpt2-large", max_length=514)
+        if torch.cuda.is_available():
+            pipe = pipeline("text-generation", model="gpt2-large", max_length=514, pad_token_id=50256, device=0)
+        else:
+            pipe = pipeline("text-generation", model="gpt2-large", max_length=514, pad_token_id=50256)
 
         text = pipe(prompt)[0]["generated_text"]
-        print(text)
         Path(output_file_path).write_text(text)
