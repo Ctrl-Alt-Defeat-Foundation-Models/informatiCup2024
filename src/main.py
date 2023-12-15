@@ -81,14 +81,14 @@ def evaluate(evaluator: str, input_file_path: str):
 
 @app.command()
 def pipeline(generator: str, processor: str, evaluator: str):
-    if not os.path.exists('pipeline_folder'):
-        os.makedirs('pipeline_folder')
+    if not os.path.exists('src/output'):
+        os.makedirs('src/output')
     if generator.endswith('text'):
-        first_file = "pipeline_folder/original_text.txt"
-        second_file = "pipeline_folder/augmented_text.txt"
+        first_file = "src/output/original_text.txt"
+        second_file = "src/output/augmented_text.txt"
     else:
-        first_file = "pipeline_folder/original_image.png"
-        second_file = "pipeline_folder/augmented_image.png"
+        first_file = "src/output/original_image.png"
+        second_file = "src/output/augmented_image.png"
     generate(generator, first_file)
     process(processor, first_file, second_file)
     evaluate(evaluator, first_file)
