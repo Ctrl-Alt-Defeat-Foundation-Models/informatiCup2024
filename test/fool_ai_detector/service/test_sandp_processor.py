@@ -9,9 +9,9 @@ class TestSAndPProcessor:
     output_generator_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',
                                               'fool_ai_detector', 'resources', 'ai_gen_images', 'clownfish.png')
     output_processor_directory_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                                   's&p_processor_images')
+                                                   's_and_p_processor_images')
     output_processor_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                              's&p_processor_images', 'processed_clownfish.png')
+                                              's_and_p_processor_images', 'processed_clownfish.png')
 
     def set_up(self):
         """
