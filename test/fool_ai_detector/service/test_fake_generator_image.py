@@ -1,5 +1,4 @@
 from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
-import pytest
 import os
 
 
