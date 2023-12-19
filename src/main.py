@@ -8,6 +8,7 @@ from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEv
 from fool_ai_detector.service.translator_processor import TranslatorProcessor
 from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
+from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 
 app = typer.Typer()
 
@@ -24,8 +25,11 @@ def generate(generator: str, output_file_path: str):
         case ("stable_diffusion_generator_image"):
             typer.echo("Using stable_diffusion_generator")
             generator_model = StableDiffusionImageGenerator()
+        case("gpt2_generator_text"):
+            typer.echo("Using GPT2 text generator")
+            generator_model = GPT2TextGenerator()
         case _:
-            typer.echo("Error given generator not available", err=True)
+            typer.secho("Error given generator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
     generator_model.generate(output_file_path)
 
@@ -43,14 +47,14 @@ def process(processor: str, input_file: str, output_file: str):
             typer.echo("Using translator_processor")
             processor_model = TranslatorProcessor()
         case _:
-            typer.echo("Error given processor not available", err=True)
+            typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
     if output_file.endswith('png') or output_file.endswith('jpg') or output_file.endswith('jpeg') and processor.endswith('image'):
         processor_model.process(input_file, output_file)
     elif output_file.endswith('txt') and processor.endswith('text'):
         processor_model.process(input_file, output_file)
     else:
-        typer.echo("The format of the file is not consistent with the format of the processor", err=True)
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
         raise typer.Exit()
 
 
@@ -64,22 +68,22 @@ def evaluate(evaluator: str, input_file_path: str):
             typer.echo("Using umm_maybe_base_evaluator")
             evaluator_model = UmmMaybeEvaluator()
         case _:
-            typer.echo("Error given evaluator not available", err=True)
+            typer.secho("Error given evaluator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
     if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg') and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.echo("---> This image is generated")
+            typer.secho("---> This image is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
         else:
-            typer.echo("---> This image is not generated")
+            typer.secho("---> This image is not generated", fg=typer.colors.GREEN, bold=True)
     elif input_file_path.endswith('txt') and evaluator.endswith('text'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.echo("---> This text is generated")
+            typer.secho("---> This text is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
         else:
-            typer.echo("---> This text is not generated")
+            typer.secho("---> This text is not generated", fg=typer.colors.GREEN, bold=True)
     else:
-        typer.echo("The format of the file is not consistent with the format of the processor", err=True)
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
         raise typer.Exit()
 
 

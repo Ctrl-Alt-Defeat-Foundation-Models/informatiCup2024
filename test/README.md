@@ -1,16 +1,16 @@
 ## Usage
 
 ### Prerequisites
-```bash
+```shell
 pip install pytest
 ```
 after changes in pyproject.toml do:
-```bash
+```shell
 cd .. ; pip install -e .
 
 ```
 ### Tests
 Run all tests with:
-```bash
+```shell
 pytest
 ```
