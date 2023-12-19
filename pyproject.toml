@@ -24,6 +24,7 @@ dependencies = [
     "typer[all]",
     "transformers[torch]",
     "scikit-image",
+    "typo",
     "translators",
     "diffusers"
 ]
