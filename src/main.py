@@ -1,5 +1,6 @@
 import typer
 import os
+from typing import Optional
 from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
@@ -9,6 +10,10 @@ from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvalua
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
 
 app = typer.Typer()
+
+
+def complete():
+    return ["fake_generator_text", "fake_generator_image", "stable_diffusion_image_generator"]
 
 
 @app.command()
@@ -65,22 +70,29 @@ def evaluate(evaluator: str, input_file_path: str):
     if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg') and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.echo("---> This image is generated")
+            typer.echo("---> This " + input_file_path[11:-4] + " is generated")
+            return True
         else:
-            typer.echo("---> This image is not generated")
+            typer.echo("---> This " + input_file_path[11:-4] + " is not generated")
+            return False
     elif input_file_path.endswith('txt') and evaluator.endswith('text'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.echo("---> This text is generated")
+            typer.echo("---> This " + input_file_path[11:-4] + " is generated")
+            return True
         else:
-            typer.echo("---> This text is not generated")
+            typer.echo("---> This " + input_file_path[11:-4] + " is not generated")
+            return False
     else:
         typer.echo("The format of the file is not consistent with the format of the processor", err=True)
         raise typer.Exit()
 
 
 @app.command()
-def pipeline(generator: str, processor: str, evaluator: str):
+def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
+    original_number_of_runthroughs = number_of_runthroughs
+    number_of_detections_before_process = 0
+    number_of_detections_after_process = 0
     if not os.path.exists('src/output'):
         os.makedirs('src/output')
     if generator.endswith('text'):
@@ -89,10 +101,18 @@ def pipeline(generator: str, processor: str, evaluator: str):
     else:
         first_file = "src/output/original_image.png"
         second_file = "src/output/augmented_image.png"
-    generate(generator, first_file)
-    process(processor, first_file, second_file)
-    evaluate(evaluator, first_file)
-    evaluate(evaluator, second_file)
+    while number_of_runthroughs > 0:
+        generate(generator, first_file)
+        process(processor, first_file, second_file)
+        evaluate(evaluator, first_file)
+        evaluate(evaluator, second_file)
+        if evaluate(evaluator, first_file):
+            number_of_detections_before_process += 1
+        if evaluate(evaluator, second_file):
+            number_of_detections_after_process += 1
+        number_of_runthroughs -= 1
+    typer.secho("Before processing: " + str(number_of_detections_before_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
+    typer.secho("After processing: " + str(number_of_detections_after_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
 
 
 if __name__ == "__main__":
