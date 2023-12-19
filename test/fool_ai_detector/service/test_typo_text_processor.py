@@ -30,7 +30,7 @@ class TestTypoProcessorText:
 
         assert origin_text != augmented_text
 
-        #self.clear_test_output()
+        self.clear_test_output()
 
     def clear_test_output(self):
         """
