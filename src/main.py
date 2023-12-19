@@ -104,8 +104,6 @@ def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroug
     while number_of_runthroughs > 0:
         generate(generator, first_file)
         process(processor, first_file, second_file)
-        evaluate(evaluator, first_file)
-        evaluate(evaluator, second_file)
         if evaluate(evaluator, first_file):
             number_of_detections_before_process += 1
         if evaluate(evaluator, second_file):
