@@ -6,6 +6,7 @@ from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
 from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaselineProcessorText
 from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
+from fool_ai_detector.service.translator_processor import TranslatorProcessor
 from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
@@ -43,6 +44,9 @@ def process(processor: str, input_file: str, output_file: str):
         case "naive_processor_text":
             typer.echo("Using naive_baseline_processor_text")
             processor_model = NaiveBaselineProcessorText()
+        case "translator_processor_text":
+            typer.echo("Using translator_processor")
+            processor_model = TranslatorProcessor()
         case _:
             typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()

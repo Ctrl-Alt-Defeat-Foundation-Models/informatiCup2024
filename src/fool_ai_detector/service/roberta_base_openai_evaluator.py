@@ -18,7 +18,7 @@ class RobertaBaseEvaluator(Evaluator):
         """
         file = open(input_file_path, "r")
         text = file.read()
-        pipe = pipeline("text-classification", model="roberta-base-openai-detector")
+        pipe = pipeline("text-classification", model="roberta-base-openai-detector", max_length=512, truncation=True)
         output = pipe(text)
         label = output[0]["label"]
         if label == "Real":
