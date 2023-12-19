@@ -7,6 +7,7 @@ from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaseline
 from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
 from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
+from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 
 app = typer.Typer()
 
@@ -23,6 +24,9 @@ def generate(generator: str, output_file_path: str):
         case ("stable_diffusion_generator_image"):
             typer.echo("Using stable_diffusion_generator")
             generator_model = StableDiffusionImageGenerator()
+        case("gpt2_generator_text"):
+            typer.echo("Using GPT2 text generator")
+            generator_model = GPT2TextGenerator()
         case _:
             typer.echo("Error given generator not available", err=True)
             raise typer.Exit()
