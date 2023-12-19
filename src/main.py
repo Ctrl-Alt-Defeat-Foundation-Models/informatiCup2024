@@ -65,13 +65,13 @@ def evaluate(evaluator: str, input_file_path: str):
     if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg') and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.secho("---> This image is generated", fg=typer.colors.YELLOW, bold=True)
+            typer.secho("---> This image is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
         else:
             typer.secho("---> This image is not generated", fg=typer.colors.GREEN, bold=True)
     elif input_file_path.endswith('txt') and evaluator.endswith('text'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.secho("---> This text is generated", fg=typer.colors.YELLOW, bold=True)
+            typer.secho("---> This text is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
         else:
             typer.secho("---> This text is not generated", fg=typer.colors.GREEN, bold=True)
     else:
