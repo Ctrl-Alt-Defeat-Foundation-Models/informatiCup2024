@@ -1,14 +1,18 @@
 import typer
 import os
+from typing import Optional
 from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
 from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaselineProcessorText
 from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
+from fool_ai_detector.service.translator_processor import TranslatorProcessor
 from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 from fool_ai_detector.service.typo_text_processor import TypoProcessorText
+from fool_ai_detector.service.poisson_processor import PoissonProcessor
+from fool_ai_detector.service.sandp_processor import SAndPProcessor
 
 app = typer.Typer()
 
@@ -29,7 +33,7 @@ def generate(generator: str, output_file_path: str):
             typer.echo("Using GPT2 text generator")
             generator_model = GPT2TextGenerator()
         case _:
-            typer.echo("Error given generator not available", err=True)
+            typer.secho("Error given generator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
     generator_model.generate(output_file_path)
 
@@ -46,15 +50,24 @@ def process(processor: str, input_file: str, output_file: str):
         case "typo_processor_text":
             typer.echo("Using typo_text_processor")
             processor_model = TypoProcessorText()
+        case "poisson_processor_image":
+            typer.echo("Using poisson_processor")
+            processor_model = PoissonProcessor()
+        case "s_and_p_processor_image":
+            typer.echo("Using s&p_processor")
+            processor_model = SAndPProcessor()
+        case "translator_processor_text":
+            typer.echo("Using translator_processor")
+            processor_model = TranslatorProcessor()
         case _:
-            typer.echo("Error given processor not available", err=True)
+            typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
     if output_file.endswith('png') or output_file.endswith('jpg') or output_file.endswith('jpeg') and processor.endswith('image'):
         processor_model.process(input_file, output_file)
     elif output_file.endswith('txt') and processor.endswith('text'):
         processor_model.process(input_file, output_file)
     else:
-        typer.echo("The format of the file is not consistent with the format of the processor", err=True)
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
         raise typer.Exit()
 
 
@@ -68,27 +81,34 @@ def evaluate(evaluator: str, input_file_path: str):
             typer.echo("Using umm_maybe_base_evaluator")
             evaluator_model = UmmMaybeEvaluator()
         case _:
-            typer.echo("Error given evaluator not available", err=True)
+            typer.secho("Error given evaluator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
     if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg') and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.echo("---> This image is generated")
+            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
+            return True
         else:
-            typer.echo("---> This image is not generated")
+            typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
+            return False
     elif input_file_path.endswith('txt') and evaluator.endswith('text'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.echo("---> This text is generated")
+            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
+            return True
         else:
-            typer.echo("---> This text is not generated")
+            typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
+            return False
     else:
-        typer.echo("The format of the file is not consistent with the format of the processor", err=True)
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
         raise typer.Exit()
 
 
 @app.command()
-def pipeline(generator: str, processor: str, evaluator: str):
+def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
+    original_number_of_runthroughs = number_of_runthroughs
+    number_of_detections_before_process = 0
+    number_of_detections_after_process = 0
     if not os.path.exists('src/output'):
         os.makedirs('src/output')
     if generator.endswith('text'):
@@ -97,10 +117,16 @@ def pipeline(generator: str, processor: str, evaluator: str):
     else:
         first_file = "src/output/original_image.png"
         second_file = "src/output/augmented_image.png"
-    generate(generator, first_file)
-    process(processor, first_file, second_file)
-    evaluate(evaluator, first_file)
-    evaluate(evaluator, second_file)
+    while number_of_runthroughs > 0:
+        generate(generator, first_file)
+        process(processor, first_file, second_file)
+        if evaluate(evaluator, first_file):
+            number_of_detections_before_process += 1
+        if evaluate(evaluator, second_file):
+            number_of_detections_after_process += 1
+        number_of_runthroughs -= 1
+    typer.secho("Before processing: " + str(number_of_detections_before_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
+    typer.secho("After processing: " + str(number_of_detections_after_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
 
 
 if __name__ == "__main__":
