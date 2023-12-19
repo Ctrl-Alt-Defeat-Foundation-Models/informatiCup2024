@@ -10,6 +10,7 @@ from fool_ai_detector.service.translator_processor import TranslatorProcessor
 from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
+from fool_ai_detector.service.poisson_processor import PoissonProcessor
 
 app = typer.Typer()
 
@@ -44,6 +45,9 @@ def process(processor: str, input_file: str, output_file: str):
         case "naive_processor_text":
             typer.echo("Using naive_baseline_processor_text")
             processor_model = NaiveBaselineProcessorText()
+        case "poisson_processor_image":
+            typer.echo("Using poisson_processor")
+            processor_model = PoissonProcessor()
         case "translator_processor_text":
             typer.echo("Using translator_processor")
             processor_model = TranslatorProcessor()
