@@ -12,10 +12,6 @@ from fool_ai_detector.service.stable_diffusion_image_generator import StableDiff
 app = typer.Typer()
 
 
-def complete():
-    return ["fake_generator_text", "fake_generator_image", "stable_diffusion_image_generator"]
-
-
 @app.command()
 def generate(generator: str, output_file_path: str):
     match generator:
