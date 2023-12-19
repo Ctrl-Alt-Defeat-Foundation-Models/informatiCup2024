@@ -45,7 +45,7 @@ def process(processor: str, input_file: str, output_file: str):
         case "naive_processor_text":
             typer.echo("Using naive_baseline_processor_text")
             processor_model = NaiveBaselineProcessorText()
-        case "sandp_processor_image":
+        case "s_and_p_processor_image":
             typer.echo("Using s&p_processpr")
             processor_model = SAndPProcessor()
         case "translator_processor_text":
