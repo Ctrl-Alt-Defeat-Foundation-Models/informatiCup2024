@@ -13,6 +13,7 @@ from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 from fool_ai_detector.service.typo_text_processor import TypoProcessorText
 from fool_ai_detector.service.poisson_processor import PoissonProcessor
 from fool_ai_detector.service.sandp_processor import SAndPProcessor
+from fool_ai_detector.service.resnet18_evaluator import Resnet18Evaluator
 
 app = typer.Typer()
 
@@ -80,6 +81,9 @@ def evaluate(evaluator: str, input_file_path: str):
         case "umm_maybe_evaluator_image":
             typer.echo("Using umm_maybe_base_evaluator")
             evaluator_model = UmmMaybeEvaluator()
+        case "resnet18_evaluator_image":
+            typer.echo("Using resnet18_evaluator")
+            evaluator_model = Resnet18Evaluator()
         case _:
             typer.secho("Error given evaluator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
