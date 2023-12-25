@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-19T15:27:24.699Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="wgXPTh_LpFw86W6S_TK_" version="22.1.11" type="device">
+<mxfile host="app.diagrams.net" modified="2023-12-25T11:14:35.427Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:120.0) Gecko/20100101 Firefox/120.0" etag="VamvSqEptXCBUUw3D1sG" version="22.1.11" type="device">
   <diagram id="whsIAXvvB3Vlr7miQYWP" name="Page-1">
     <mxGraphModel dx="1949" dy="586" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -52,10 +52,10 @@
         <mxCell id="pHOT10jgORBA76ojkJSI-14" value="roberta" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#33FF33;" parent="1" vertex="1">
           <mxGeometry x="465" y="130" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-15" value="nlptown *1" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-15" value="radar" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFF33;" parent="1" vertex="1">
           <mxGeometry x="465" y="180" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-16" value="prya *3" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-16" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="465" y="230" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pHOT10jgORBA76ojkJSI-18" value="Stable Diffusion" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#33FF33;" parent="1" vertex="1">
@@ -73,7 +73,7 @@
         <mxCell id="pHOT10jgORBA76ojkJSI-23" value="Umm-Maybe Evaluator" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=middle;fillColor=#33FF33;" parent="1" vertex="1">
           <mxGeometry x="465" y="370" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-24" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-24" value="resnet18" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFF33;" parent="1" vertex="1">
           <mxGeometry x="465" y="420" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pHOT10jgORBA76ojkJSI-25" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -130,25 +130,25 @@
         <mxCell id="pHOT10jgORBA76ojkJSI-43" value="Fake-Generator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF33FF;" parent="1" vertex="1">
           <mxGeometry x="165" y="130" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-48" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-48" value="gpt 2" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="165" y="180" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-49" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-49" value="falcon" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="165" y="230" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pHOT10jgORBA76ojkJSI-51" value="&quot; &quot; -&amp;gt; &quot;&amp;nbsp; &quot;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="365" y="130" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-52" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-52" value="translation" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="365" y="180" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-53" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-53" value="typo" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="365" y="230" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pHOT10jgORBA76ojkJSI-54" value="roberta" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#33FF33;" parent="1" vertex="1">
           <mxGeometry x="565" y="130" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-55" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-55" value="radar" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
           <mxGeometry x="565" y="180" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pHOT10jgORBA76ojkJSI-56" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -157,25 +157,25 @@
         <mxCell id="pHOT10jgORBA76ojkJSI-57" value="Fake-Generator" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FF33FF;" parent="1" vertex="1">
           <mxGeometry x="165" y="370" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-58" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-58" value="stable diffusion" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="165" y="420" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-59" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-59" value="dall-e" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="165" y="470" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-60" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-60" value="Gaussian noice" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="365" y="370" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-61" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-61" value="s&amp;amp;p" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="365" y="420" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pHOT10jgORBA76ojkJSI-62" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="365" y="520" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-63" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-63" value="umm-maybe" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="565" y="370" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="pHOT10jgORBA76ojkJSI-64" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="pHOT10jgORBA76ojkJSI-64" value="resnet18" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="565" y="420" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="pHOT10jgORBA76ojkJSI-65" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -226,20 +226,14 @@
         <mxCell id="F3MV0ou2FzLWRQstEECt-10" value="RNG objects" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="265" y="520" width="80" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="F3MV0ou2FzLWRQstEECt-11" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="F3MV0ou2FzLWRQstEECt-11" value="poisson" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="365" y="470" width="80" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="F3MV0ou2FzLWRQstEECt-12" value="&lt;div&gt;*1: https://github.com/Kishanjaisoorya/AI-Text-Detector-python/blob/main/AI%20Text%20Detection%20using%20python/AITextDetector.py&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="-4" y="660" width="750" height="30" as="geometry" />
         </mxCell>
         <mxCell id="F3MV0ou2FzLWRQstEECt-13" value="iwatermark *2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="265" y="560" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="F3MV0ou2FzLWRQstEECt-14" value="*2: https://github.com/ShieldMnt/invisible-watermark" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="-4" y="700" width="300" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="F3MV0ou2FzLWRQstEECt-16" value="*3: https://huggingface.co/idajikuu/AI-HUMAN-detector/tree/main" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="-4" y="740" width="370" height="30" as="geometry" />
+          <mxGeometry x="-5" y="620" width="300" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
