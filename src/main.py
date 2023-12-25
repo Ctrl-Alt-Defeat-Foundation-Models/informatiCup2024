@@ -62,9 +62,9 @@ def process(processor: str, input_file: str, output_file: str):
         case _:
             typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
-    if output_file.endswith('png') or output_file.endswith('jpg') or output_file.endswith('jpeg') and processor.endswith('image'):
+    if (input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and processor.endswith('image'):
         processor_model.process(input_file, output_file)
-    elif output_file.endswith('txt') and processor.endswith('text'):
+    elif input_file.endswith('txt') and processor.endswith('text'):
         processor_model.process(input_file, output_file)
     else:
         typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
@@ -83,7 +83,7 @@ def evaluate(evaluator: str, input_file_path: str):
         case _:
             typer.secho("Error given evaluator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
-    if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg') and evaluator.endswith('image'):
+    if (input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg')) and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
             typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
@@ -100,7 +100,7 @@ def evaluate(evaluator: str, input_file_path: str):
             typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
             return False
     else:
-        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
+        typer.secho("The format of the file is not consistent with the format of the evaluator", err=True, fg=typer.colors.RED)
         raise typer.Exit()
 
 
