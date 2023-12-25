@@ -1,5 +1,6 @@
 import typer
 import os
+import shutil
 from typing import Optional
 from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
@@ -42,28 +43,31 @@ def generate(generator: str, output_file_path: str):
 
 @app.command()
 def process(processor: str, input_file: str, output_file: str):
-    match processor:
-        case "naive_processor_image":
-            typer.echo("Using naive_baseline_processor_image")
-            processor_model = NaiveBaselineProcessorImage()
-        case "naive_processor_text":
-            typer.echo("Using naive_baseline_processor_text")
-            processor_model = NaiveBaselineProcessorText()
-        case "typo_processor_text":
-            typer.echo("Using typo_text_processor")
-            processor_model = TypoProcessorText()
-        case "poisson_processor_image":
-            typer.echo("Using poisson_processor")
-            processor_model = PoissonProcessor()
-        case "s_and_p_processor_image":
-            typer.echo("Using s&p_processor")
-            processor_model = SAndPProcessor()
-        case "translator_processor_text":
-            typer.echo("Using translator_processor")
-            processor_model = TranslatorProcessor()
-        case _:
-            typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
-            raise typer.Exit()
+    processor = processor.split("-")
+    typer.echo(processor)
+    for x in processor:
+        match x:
+            case "naive_processor_image":
+                typer.echo("Using naive_baseline_processor_image")
+                processor_model = NaiveBaselineProcessorImage()
+            case "naive_processor_text":
+                typer.echo("Using naive_baseline_processor_text")
+                processor_model = NaiveBaselineProcessorText()
+            case "typo_processor_text":
+                typer.echo("Using typo_text_processor")
+                processor_model = TypoProcessorText()
+            case "poisson_processor_image":
+                typer.echo("Using poisson_processor")
+                processor_model = PoissonProcessor()
+            case "s_and_p_processor_image":
+                typer.echo("Using s&p_processor")
+                processor_model = SAndPProcessor()
+            case "translator_processor_text":
+                typer.echo("Using translator_processor")
+                processor_model = TranslatorProcessor()
+            case _:
+                typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
+                raise typer.Exit()
     if (input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and processor.endswith('image'):
         processor_model.process(input_file, output_file)
     elif input_file.endswith('txt') and processor.endswith('text'):
@@ -127,7 +131,8 @@ def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroug
         second_file = "src/output/augmented_image.png"
     while number_of_runthroughs > 0:
         generate(generator, first_file)
-        process(processor, first_file, second_file)
+        shutil.copy(first_file, second_file)
+        process(processor, second_file, second_file)
         if evaluate(evaluator, first_file):
             number_of_detections_before_process += 1
         if evaluate(evaluator, second_file):
