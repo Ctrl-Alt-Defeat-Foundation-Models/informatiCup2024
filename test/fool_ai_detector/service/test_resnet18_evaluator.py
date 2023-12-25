@@ -1,6 +1,6 @@
 import os
 
-from src.fool_ai_detector.service.resnet18_evaluator import Resnet18Evaluator
+from fool_ai_detector.service.resnet18_evaluator import Resnet18Evaluator
 
 
 class TestResnet18Evaluator:

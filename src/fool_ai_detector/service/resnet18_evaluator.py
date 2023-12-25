@@ -9,9 +9,10 @@ from PIL import Image
 from timm.data import resolve_data_config
 from timm.data.transforms_factory import create_transform
 
+
 class Resnet18Evaluator(Evaluator):
     """
-    Umm-Maybe Evaluator
+    Resnet-18 Evaluator
     """
 
     def evaluate(self, input_file_path) -> bool:
@@ -44,7 +45,7 @@ class Resnet18Evaluator(Evaluator):
         probabilities = torch.nn.functional.softmax(out[0], dim=0)
 
         # Grab the values and indices of top 5 predicted classes
-        values, indices = torch.topk(probabilities, 1)
+        _, indices = torch.topk(probabilities, 1)
 
         if labels[indices[0].item()] == "NOT AI":
             return False
