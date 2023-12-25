@@ -1,6 +1,7 @@
 import typer
 import os
 from typing import Optional
+from typing import Annotated
 from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
@@ -17,8 +18,11 @@ from fool_ai_detector.service.sandp_processor import SAndPProcessor
 app = typer.Typer()
 
 
-@app.command()
-def generate(generator: str, output_file_path: str):
+@app.command(help="Generates a text or an image")
+def generate(generator: Annotated[str, typer.Argument(help="fake_generator_text, "
+                                                           "fake_generator_image, "
+                                                           "stable_diffusion_image_generator, "
+                                                           "gpt2_text_generator")], output_file_path: str):
     match generator:
         case "fake_generator_text":
             typer.echo("Using fake_generator_text")
@@ -29,7 +33,7 @@ def generate(generator: str, output_file_path: str):
         case ("stable_diffusion_generator_image"):
             typer.echo("Using stable_diffusion_generator")
             generator_model = StableDiffusionImageGenerator()
-        case("gpt2_generator_text"):
+        case ("gpt2_generator_text"):
             typer.echo("Using GPT2 text generator")
             generator_model = GPT2TextGenerator()
         case _:
@@ -38,8 +42,13 @@ def generate(generator: str, output_file_path: str):
     generator_model.generate(output_file_path)
 
 
-@app.command()
-def process(processor: str, input_file: str, output_file: str):
+@app.command(help="Processes a generated text or image")
+def process(processor: Annotated[str, typer.Argument(help="naive_processor_image, "
+                                                          "naive_processor_text, "
+                                                          "typo_text_processor, "
+                                                          "poisson_image_processor, "
+                                                          "s&p_image_processor, "
+                                                          "translator_text_processor")], input_file: str, output_file: str):
     match processor:
         case "naive_processor_image":
             typer.echo("Using naive_baseline_processor_image")
@@ -62,17 +71,20 @@ def process(processor: str, input_file: str, output_file: str):
         case _:
             typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
-    if output_file.endswith('png') or output_file.endswith('jpg') or output_file.endswith('jpeg') and processor.endswith('image'):
+    if output_file.endswith('png') or output_file.endswith('jpg') or output_file.endswith(
+            'jpeg') and processor.endswith('image'):
         processor_model.process(input_file, output_file)
     elif output_file.endswith('txt') and processor.endswith('text'):
         processor_model.process(input_file, output_file)
     else:
-        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True,
+                    fg=typer.colors.RED)
         raise typer.Exit()
 
 
-@app.command()
-def evaluate(evaluator: str, input_file_path: str):
+@app.command(help="Evaluates whether or not a text or an image is generated")
+def evaluate(evaluator: Annotated[str, typer.Argument(help="roberta_base_openai_text_evaluator, "
+                                                           "umm_maybe_image_evaluator")], input_file_path: str):
     match evaluator:
         case "roberta_evaluator_text":
             typer.echo("Using roberta_base_openai_evaluator")
@@ -83,10 +95,12 @@ def evaluate(evaluator: str, input_file_path: str):
         case _:
             typer.secho("Error given evaluator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
-    if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg') and evaluator.endswith('image'):
+    if input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith(
+            'jpeg') and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
+            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN,
+                        bold=True)
             return True
         else:
             typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
@@ -94,18 +108,21 @@ def evaluate(evaluator: str, input_file_path: str):
     elif input_file_path.endswith('txt') and evaluator.endswith('text'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
+            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN,
+                        bold=True)
             return True
         else:
             typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
             return False
     else:
-        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True,
+                    fg=typer.colors.RED)
         raise typer.Exit()
 
 
-@app.command()
-def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
+@app.command(help="Runs a pipeline of generation, processing and evaluation")
+def pipeline(generator: str, processor: str, evaluator: str,
+             number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
     original_number_of_runthroughs = number_of_runthroughs
     number_of_detections_before_process = 0
     number_of_detections_after_process = 0
@@ -125,8 +142,10 @@ def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroug
         if evaluate(evaluator, second_file):
             number_of_detections_after_process += 1
         number_of_runthroughs -= 1
-    typer.secho("Before processing: " + str(number_of_detections_before_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
-    typer.secho("After processing: " + str(number_of_detections_after_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
+    typer.secho("Before processing: " + str(number_of_detections_before_process) + " out of " + str(
+        original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
+    typer.secho("After processing: " + str(number_of_detections_after_process) + " out of " + str(
+        original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
 
 
 if __name__ == "__main__":

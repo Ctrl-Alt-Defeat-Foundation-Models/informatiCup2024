@@ -12,6 +12,15 @@ You can see all the possible command using the command
 ```shell
 fad --help
 ```
+```shell
+fad generate --help
+```
+```shell
+fad process --help
+```
+```shell
+fad evaluate --help
+```
 General commands are: `fad generate ...`, `fad process ...`, `fad evaluate ...`
 
 Types of generators: `fake_generator_text`, `fake_generator_image`, `stable_diffusion_generator_image`
