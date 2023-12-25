@@ -5,6 +5,7 @@ from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
 from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaselineProcessorText
+from fool_ai_detector.service.radar_text_evaluator import RadarEvaluator
 from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
 from fool_ai_detector.service.translator_processor import TranslatorProcessor
 from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
@@ -77,6 +78,9 @@ def evaluate(evaluator: str, input_file_path: str):
         case "roberta_evaluator_text":
             typer.echo("Using roberta_base_openai_evaluator")
             evaluator_model = RobertaBaseEvaluator()
+        case "radar_evaluator_text":
+            typer.echo("Using radar_evaluator")
+            evaluator_model = RadarEvaluator()
         case "umm_maybe_evaluator_image":
             typer.echo("Using umm_maybe_base_evaluator")
             evaluator_model = UmmMaybeEvaluator()
