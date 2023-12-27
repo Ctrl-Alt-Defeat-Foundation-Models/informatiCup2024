@@ -19,10 +19,7 @@ app = typer.Typer()
 
 
 @app.command(help="Generates a text or an image")
-def generate(generator: Annotated[str, typer.Argument(help="fake_generator_text, "
-                                                           "fake_generator_image, "
-                                                           "stable_diffusion_image_generator, "
-                                                           "gpt2_text_generator")], output_file_path: str):
+def generate(generator: str, output_file_path: str):
     match generator:
         case "fake_generator_text":
             typer.echo("Using fake_generator_text")
@@ -43,12 +40,7 @@ def generate(generator: Annotated[str, typer.Argument(help="fake_generator_text,
 
 
 @app.command(help="Processes a generated text or image")
-def process(processor: Annotated[str, typer.Argument(help="naive_processor_image, "
-                                                          "naive_processor_text, "
-                                                          "typo_text_processor, "
-                                                          "poisson_image_processor, "
-                                                          "s&p_image_processor, "
-                                                          "translator_text_processor")], input_file: str, output_file: str):
+def process(processor: str, input_file: str, output_file: str):
     match processor:
         case "naive_processor_image":
             typer.echo("Using naive_baseline_processor_image")
@@ -83,8 +75,7 @@ def process(processor: Annotated[str, typer.Argument(help="naive_processor_image
 
 
 @app.command(help="Evaluates whether or not a text or an image is generated")
-def evaluate(evaluator: Annotated[str, typer.Argument(help="roberta_base_openai_text_evaluator, "
-                                                           "umm_maybe_image_evaluator")], input_file_path: str):
+def evaluate(evaluator: str, input_file_path: str):
     match evaluator:
         case "roberta_evaluator_text":
             typer.echo("Using roberta_base_openai_evaluator")
@@ -146,6 +137,13 @@ def pipeline(generator: str, processor: str, evaluator: str,
         original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
     typer.secho("After processing: " + str(number_of_detections_after_process) + " out of " + str(
         original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
+
+
+@app.command(help="Lists all possible inputs for the commands")
+def command_list():
+    generator_list = []
+    processor_list = []
+    evaluator_list = []
 
 
 if __name__ == "__main__":
