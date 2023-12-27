@@ -142,8 +142,11 @@ def pipeline(generator: str, processor: str, evaluator: str,
 @app.command(help="Lists all possible inputs for the commands")
 def command_list():
     generator_list = []
+    typer.echo(generator_list)
     processor_list = []
+    typer.echo(processor_list)
     evaluator_list = []
+    typer.echo(evaluator_list)
 
 
 if __name__ == "__main__":
