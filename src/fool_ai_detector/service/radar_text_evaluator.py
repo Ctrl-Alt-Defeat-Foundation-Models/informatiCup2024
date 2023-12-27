@@ -18,7 +18,7 @@ class RadarEvaluator(Evaluator):
         """
         file = open(input_file_path, "r")
         text = file.read()
-        pipe = pipeline("text-classification", model="TrustSafeAI/RADAR-Vicuna-7B")
+        pipe = pipeline("text-classification", model="TrustSafeAI/RADAR-Vicuna-7B", max_length=512, truncation=True)
         output = pipe(text)
         label = output[0]["label"]
         if label == "Real":
