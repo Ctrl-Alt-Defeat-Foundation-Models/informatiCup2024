@@ -18,7 +18,4 @@ class UmmMaybeEvaluator(Evaluator):
         """
         pipe = pipeline("image-classification", model="umm-maybe/AI-image-detector")
         output = pipe(input_file_path)
-        if output[0]["score"] > output[1]["score"]:
-            return False
-        else:
-            return True
+        return output[0]["label"] == "artificial"
