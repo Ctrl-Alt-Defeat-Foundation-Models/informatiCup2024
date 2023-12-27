@@ -43,10 +43,9 @@ def generate(generator: str, output_file_path: str):
 
 @app.command()
 def process(processor: str, input_file: str, output_file: str):
-    processor = processor.split("-")
-    typer.echo(processor)
-    for x in processor:
-        match x:
+    processors = processor.split("-")
+    for current_processor in processors:
+        match current_processor:
             case "naive_processor_image":
                 typer.echo("Using naive_baseline_processor_image")
                 processor_model = NaiveBaselineProcessorImage()
