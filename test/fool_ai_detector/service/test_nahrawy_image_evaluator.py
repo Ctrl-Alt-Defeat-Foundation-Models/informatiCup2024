@@ -12,5 +12,4 @@ class TestNahrawyEvaluator:
         nahrawy_evaluator = NahrawyEvaluator()
         is_fake = nahrawy_evaluator.evaluate(self.output_processor_file_path)
 
-        print("should NOT be ai:" + str(is_fake))
         assert isinstance(is_fake, bool)
