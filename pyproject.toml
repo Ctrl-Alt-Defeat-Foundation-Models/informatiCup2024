@@ -26,7 +26,8 @@ dependencies = [
     "scikit-image",
     "typo",
     "translators",
-    "diffusers"
+    "diffusers",
+    "timm"
 ]
 
 [project.urls]
