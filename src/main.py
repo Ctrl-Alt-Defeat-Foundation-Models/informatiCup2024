@@ -33,8 +33,8 @@ def generate(generator: str, output_file_path: str):
         case("gpt2_generator_text"):
             typer.echo("Using GPT2 text generator")
             generator_model = GPT2TextGenerator()
-        case("dallE"):
-            typer.echo("Using DallE text generator")
+        case("dallE_generator_image"):
+            typer.echo("Using DallE image generator")
             generator_model = DalleImageGenerator()
         case _:
             typer.secho("Error given generator not available", err=True, fg=typer.colors.RED)

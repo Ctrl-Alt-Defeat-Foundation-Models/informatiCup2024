@@ -9,7 +9,7 @@ from fool_ai_detector.model.generator import Generator
 
 class DalleImageGenerator(Generator):
     """
-    Base class for a Generator
+    Class for the Dall-E image generator
     """
 
     def generate(self, output_file_path, prompt="Generate a realistic random image"):
@@ -23,7 +23,7 @@ class DalleImageGenerator(Generator):
             pipe = AutoPipelineForText2Image.from_pretrained('dataautogpt3/OpenDalle',
                                                              torch_dtype=torch.float16).to('cuda')
         else:
-            pipe = AutoPipelineForText2Image.from_pretrained('dataautogpt3/OpenDalle', torch_dtype=torch.float16)
+            pipe = AutoPipelineForText2Image.from_pretrained('dataautogpt3/OpenDalle')
 
         image = pipe(prompt).images[0]
         image.save(output_file_path)
