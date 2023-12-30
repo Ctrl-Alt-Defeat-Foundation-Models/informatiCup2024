@@ -4,6 +4,7 @@ import shutil
 from typing import Optional
 from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
+from fool_ai_detector.service.nahrawy_image_evaluator import NahrawyEvaluator
 from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
 from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaselineProcessorText
 from fool_ai_detector.service.radar_text_evaluator import RadarEvaluator
@@ -88,6 +89,9 @@ def evaluate(evaluator: str, input_file_path: str):
         case "umm_maybe_evaluator_image":
             typer.echo("Using umm_maybe_base_evaluator")
             evaluator_model = UmmMaybeEvaluator()
+        case "nahrawy_evaluator_image":
+            typer.echo("Using nahrawy_evaluator")
+            evaluator_model = NahrawyEvaluator()
         case "resnet18_evaluator_image":
             typer.echo("Using resnet18_evaluator")
             evaluator_model = Resnet18Evaluator()
