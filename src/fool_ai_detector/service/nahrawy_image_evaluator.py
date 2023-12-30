@@ -7,7 +7,7 @@ from transformers import pipeline
 
 class NahrawyEvaluator(Evaluator):
     """
-    Nahrawy Evaluator
+    Nahrawy image Evaluator
     """
 
     def evaluate(self, input_file_path) -> bool:
