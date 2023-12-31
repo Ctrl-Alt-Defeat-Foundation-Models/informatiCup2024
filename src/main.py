@@ -125,7 +125,6 @@ def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroug
     original_number_of_runthroughs = number_of_runthroughs
     number_of_detections_before_process = 0
     number_of_detections_after_process = 0
-    text_or_image = ""
     if not os.path.exists('src/output'):
         os.makedirs('src/output')
     if generator.endswith('text'):
