@@ -31,35 +31,35 @@ class CSVWriter:
     def increase_human_human(self):
         """
         This Method increases the variable that counts the times that the original image and the processesed image
-        came to the result that it was a human
+        came to the result that it was human-generated
         """
         self.human_human = self.human_human + 1
 
     def increase_ai_ai(self):
         """
         This Method increases the variable that counts the times that the original image and the processesed image
-        came to the result that it was an AI
+        came to the result that it was AI-generated
         """
         self.ai_ai = self.ai_ai + 1
 
     def increase_human_ai(self):
         """
-        This Method increases the variable that counts the times that the original image was human and the processesed image
-        was AI
+        This Method increases the variable that counts the times that the original image was human-generated and the processed image
+        was AI-generated
         """
         self.human_ai = self.human_ai + 1
 
     def increase_ai_human(self):
         """
-        This Method increases the variable that counts the times that the original image was AI and the processesed image
-        was human
+        This Method increases the variable that counts the times that the original image was AI-generated and the processed image
+        was human-generated
         """
         self.ai_human = self.ai_human + 1
 
     def write_to_csv(self, filename='data.csv'):
         """
         This method writes the current data into a file (filename)
-        :param filename: the file to write to
+        :param filename: the filename of the generated file
         """
         try:
             with open(filename, 'r', newline='') as file:
