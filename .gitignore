@@ -186,4 +186,4 @@ fabric.properties
 /output/**
 /test/test_output/**
 /src/output/**
-
+/data.csv

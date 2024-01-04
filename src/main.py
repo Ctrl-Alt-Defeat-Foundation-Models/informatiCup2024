@@ -18,6 +18,7 @@ from fool_ai_detector.service.typo_text_processor import TypoProcessorText
 from fool_ai_detector.service.poisson_processor import PoissonProcessor
 from fool_ai_detector.service.sandp_processor import SAndPProcessor
 from fool_ai_detector.service.resnet18_evaluator import Resnet18Evaluator
+from fool_ai_detector.service.CSVWriter import CSVWriter
 
 app = typer.Typer()
 
@@ -133,18 +134,32 @@ def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroug
     if generator.endswith('text'):
         first_file = "src/output/original_text.txt"
         second_file = "src/output/augmented_text.txt"
+        text_or_image = "text"
     else:
         first_file = "src/output/original_image.png"
         second_file = "src/output/augmented_image.png"
+        text_or_image = "image"
+    csv_writer = CSVWriter(generator, processor, evaluator, text_or_image, number_of_runthroughs)
     while number_of_runthroughs > 0:
         generate(generator, first_file)
         shutil.copy(first_file, second_file)
         process(processor, second_file, second_file)
-        if evaluate(evaluator, first_file):
+        is_original_ai = evaluate(evaluator, first_file)
+        is_processed_ai = evaluate(evaluator, second_file)
+        if is_original_ai & is_processed_ai:
             number_of_detections_before_process += 1
-        if evaluate(evaluator, second_file):
             number_of_detections_after_process += 1
+            csv_writer.increase_ai_ai()
+        elif (not is_original_ai) & (not is_processed_ai):
+            csv_writer.increase_human_human()
+        elif (not is_original_ai) & is_processed_ai:
+            number_of_detections_after_process += 1
+            csv_writer.increase_human_ai()
+        elif is_original_ai & (not is_processed_ai):
+            number_of_detections_before_process += 1
+            csv_writer.increase_ai_human()
         number_of_runthroughs -= 1
+    csv_writer.write_to_csv()
     typer.secho("Before processing: " + str(number_of_detections_before_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
     typer.secho("After processing: " + str(number_of_detections_after_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
 
