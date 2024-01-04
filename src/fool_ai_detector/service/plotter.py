@@ -26,7 +26,7 @@ def filter_data(filtered_data_param, text_or_image=None, time_interval=None, pip
         start_time, end_time = pd.to_datetime(time_interval[0]), pd.to_datetime(time_interval[1])
         filtered_data_param = filtered_data_param[pd.to_datetime(filtered_data_param['current_date_time']).between(start_time, end_time)]
     if pipeline_processors is not None:
-        filtered_data_param = filtered_data[filtered_data['pipeline_processors'].isin(pipeline_processors)]
+        filtered_data_param = filtered_data_param[filtered_data_param['pipeline_processors'].isin(pipeline_processors)]
     return filtered_data_param
 
 def plot_single_pipeline(filtered_data_param):
