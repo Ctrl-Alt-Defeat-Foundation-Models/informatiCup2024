@@ -2,6 +2,7 @@ import typer
 import os
 import shutil
 from typing import Optional
+
 from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.nahrawy_image_evaluator import NahrawyEvaluator
@@ -22,12 +23,12 @@ from fool_ai_detector.service.CSVWriter import CSVWriter
 
 app = typer.Typer()
 
-image_generator_list = ["fake_generator_image", "stable_diffusion_generator_image"]
+image_generator_list = ["fake_generator_image", "stable_diffusion_generator_image", "dallE_generator_image"]
 text_generator_list = ["fake_generator_text", "gpt2_generator_text"]
 image_processor_list = ["naive_processor_image", "poisson_processor_image", "s_and_p_processor_image"]
 text_processor_list = ["naive_processor_text", "typo_processor_text", "translator_processor_text"]
-image_evaluator_list = ["umm_maybe_evaluator_image"]
-text_evaluator_list = ["roberta_evaluator_text"]
+image_evaluator_list = ["umm_maybe_evaluator_image", "nahrawy_evaluator_image", "resnet18_evaluator_image"]
+text_evaluator_list = ["roberta_evaluator_text", "radar_evaluator_text"]
 
 
 @app.command(help="Generates a text or an image")
