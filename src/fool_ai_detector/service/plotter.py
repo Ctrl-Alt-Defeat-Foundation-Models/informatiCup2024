@@ -114,12 +114,15 @@ def plot_overview_pipeline(filtered_data_param):
     plt.grid(True)
 
     plt.show()
-    
+
+"""
+change the values of the 1.filters and 2.filepath, then run this file.
+"""
 # example plots
 file_path = 'data.csv'
 data_frame = read_csv(file_path)
 
-# filter
+# filters, change these
 time_interval_filter = ('2024-01-03 00:00:00', '2024-01-05 00:00:00')
 pipeline_processor_filter = ['4']
 group_pipeline_processor_filter = ['naive_processor_image', '1', '2', '3', '4']
