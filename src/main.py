@@ -17,6 +17,13 @@ from fool_ai_detector.service.sandp_processor import SAndPProcessor
 
 app = typer.Typer()
 
+image_generator_list = ["fake_generator_image", "stable_diffusion_generator_image"]
+text_generator_list = ["fake_generator_text", "gpt2_generator_text"]
+image_processor_list = ["naive_processor_image", "poisson_processor_image", "s_and_p_processor_image"]
+text_processor_list = ["naive_processor_text", "typo_processor_text", "translator_processor_text"]
+image_evaluator_list = ["umm_maybe_evaluator_image"]
+text_evaluator_list = ["roberta_evaluator_text"]
+
 
 @app.command(help="Generates a text or an image")
 def generate(generator: str, output_file_path: str):
@@ -140,13 +147,39 @@ def pipeline(generator: str, processor: str, evaluator: str,
 
 
 @app.command(help="Lists all possible inputs for the commands")
-def command_list():
-    generator_list = []
-    typer.echo(generator_list)
-    processor_list = []
-    typer.echo(processor_list)
-    evaluator_list = []
-    typer.echo(evaluator_list)
+def command_list(command: str, image: bool):
+    list_display = []
+    if image:
+        text_display = "Possible inputs for image "
+        match command:
+            case "generate":
+                list_display = image_generator_list
+                text_display += "generators:\n"
+            case "process":
+                list_display = image_processor_list
+                text_display += "processors:\n"
+            case "evaluate":
+                list_display = image_evaluator_list
+                text_display += "evaluators:\n"
+            case _:
+                typer.secho("Error: No such operation.", err=True, fg=typer.colors.RED)
+    else:
+        text_display = "Possible inputs for text "
+        match command:
+            case "generate":
+                list_display = text_generator_list
+                text_display += "generators:\n"
+            case "process":
+                list_display = text_processor_list
+                text_display += "processors:\n"
+            case "evaluate":
+                list_display = text_evaluator_list
+                text_display += "evaluators:\n"
+            case _:
+                typer.secho("Error: No such operation.", err=True, fg=typer.colors.RED)
+
+    typer.echo(text_display)
+    typer.echo(list_display)
 
 
 if __name__ == "__main__":
