@@ -27,7 +27,9 @@ dependencies = [
     "typo",
     "translators",
     "diffusers",
-    "timm"
+    "timm",
+    "pandas",
+    "matplotlib"
 ]
 
 [project.urls]
