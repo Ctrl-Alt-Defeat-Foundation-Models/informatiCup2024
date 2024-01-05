@@ -126,43 +126,96 @@ def evaluate(evaluator: str, input_file_path: str):
 
 @app.command()
 def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
-    original_number_of_runthroughs = number_of_runthroughs
+    images = generate_images_for_pipeline(generator, number_of_runthroughs)
+
+    process_images_for_pipeline(processor, images)
+
+    evaluate_images_for_pipeline(evaluator, generator, processor, images, number_of_runthroughs)
+
+
+def evaluate_images_for_pipeline(evaluator, generator, processor, images, number_of_runthroughs_param):
+    """
+    This method evaluates for every evaluator the original and the processed kind of image
+    :param evaluator: all evaluators seperated with "-"
+    :param generator: generator used
+    :param processor: all processor seperated with "-"
+    :param images: images generated as list of tuples (index_0 = unprocessed, index_1 = processed)
+    :param number_of_runthroughs_param: number of images generated for this run
+    """
     number_of_detections_before_process = 0
     number_of_detections_after_process = 0
+    text_or_image = "image" if generator.endswith("image") else "text"
+    evaluators = evaluator.split("-")
+    for current_evaluator in evaluators:
+        csv_writer = CSVWriter(generator, processor, current_evaluator, text_or_image, number_of_runthroughs_param)
+        for image in images:
+            is_original_ai = evaluate(current_evaluator, image[0])
+            is_processed_ai = evaluate(current_evaluator, image[1])
+
+            if is_original_ai and is_processed_ai:
+                number_of_detections_before_process += 1
+                number_of_detections_after_process += 1
+                csv_writer.increase_ai_ai()
+            elif not is_original_ai and not is_processed_ai:
+                csv_writer.increase_human_human()
+            elif not is_original_ai and is_processed_ai:
+                number_of_detections_after_process += 1
+                csv_writer.increase_human_ai()
+            elif is_original_ai and not is_processed_ai:
+                number_of_detections_before_process += 1
+                csv_writer.increase_ai_human()
+
+        csv_writer.write_to_csv()
+        typer.secho(
+            current_evaluator + ": Before processing: " + str(number_of_detections_before_process) + " out of " + str(
+                number_of_runthroughs_param) + " were detected as generated.", fg=typer.colors.CYAN)
+        typer.secho(
+            current_evaluator + ": After processing: " + str(number_of_detections_after_process) + " out of " + str(
+                number_of_runthroughs_param) + " were detected as generated.", fg=typer.colors.CYAN)
+
+
+def process_images_for_pipeline(processor, images):
+    """
+    This Method processes all images
+    :param processor: all processors the author wants combined with "-"
+    :param images: all images as Tuples, (index_0 = unprocessed, index_1 = processed)
+    """
+    for image in images:
+        process(processor, image[0], image[1])
+
+
+def generate_images_for_pipeline(generator, number_of_runthroughs_param):
+    """
+    This method generates number_of_runthroughs images and saves them in the output folder
+    :param generator: generator that has to be used
+    :param number_of_runthroughs_param: number of images to generate
+    :return: list of images
+    """
+
     if not os.path.exists('src/output'):
         os.makedirs('src/output')
     if generator.endswith('text'):
         first_file = "src/output/original_text.txt"
         second_file = "src/output/augmented_text.txt"
-        text_or_image = "text"
     else:
         first_file = "src/output/original_image.png"
         second_file = "src/output/augmented_image.png"
-        text_or_image = "image"
-    csv_writer = CSVWriter(generator, processor, evaluator, text_or_image, number_of_runthroughs)
-    while number_of_runthroughs > 0:
+
+    ret_images = []
+    while number_of_runthroughs_param > 0:
+        first_file_start = first_file.split(".")[0]
+        first_file_end = first_file.split(".")[1]
+        first_file = first_file_start + str(number_of_runthroughs_param) + "." + first_file_end
+
+        second_file_start = second_file.split(".")[0]
+        second_file_end = second_file.split(".")[1]
+        second_file = second_file_start + str(number_of_runthroughs_param) + "." + second_file_end
+
         generate(generator, first_file)
         shutil.copy(first_file, second_file)
-        process(processor, second_file, second_file)
-        is_original_ai = evaluate(evaluator, first_file)
-        is_processed_ai = evaluate(evaluator, second_file)
-        if is_original_ai & is_processed_ai:
-            number_of_detections_before_process += 1
-            number_of_detections_after_process += 1
-            csv_writer.increase_ai_ai()
-        elif (not is_original_ai) & (not is_processed_ai):
-            csv_writer.increase_human_human()
-        elif (not is_original_ai) & is_processed_ai:
-            number_of_detections_after_process += 1
-            csv_writer.increase_human_ai()
-        elif is_original_ai & (not is_processed_ai):
-            number_of_detections_before_process += 1
-            csv_writer.increase_ai_human()
-        number_of_runthroughs -= 1
-    csv_writer.write_to_csv()
-    typer.secho("Before processing: " + str(number_of_detections_before_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
-    typer.secho("After processing: " + str(number_of_detections_after_process) + " out of " + str(original_number_of_runthroughs) + " were detected as generated.", fg=typer.colors.CYAN)
-
+        ret_images.append((first_file, second_file))
+        number_of_runthroughs_param -= 1
+    return ret_images
 
 if __name__ == "__main__":
     app()
