@@ -122,6 +122,61 @@ def plot_overview_pipeline(filtered_data_param):
 
     plt.show()
 
+def plot_overview_pipeline_new(data):
+    """
+    if you want to have an overview over many different pipelines, use this method
+
+    :param data:
+    :return:
+    """
+
+    # data
+    categories = ['ai_human', 'human_human', 'ai_ai', 'human_ai']
+    processors = []
+    evaluators = []
+    ai_ai = []
+    human_human = []
+    ai_human = []
+    human_ai = []
+
+    grouped_data = data.groupby(['pipeline_processors', 'pipeline_evaluator'])
+    for i, (group_name, group_data) in enumerate(grouped_data):
+        group_data_sum = group_data[categories].sum()
+
+        processors.append(group_name[0]+"\n"+group_name[1])
+        evaluators.append(group_name[1])
+
+        ai_ai.append(group_data_sum[categories[0]])
+        human_human.append(group_data_sum[categories[1]])
+        ai_human.append(group_data_sum[categories[2]])
+        human_ai.append(group_data_sum[categories[3]])
+
+    # diagram params
+    n = len(processors)
+    bar_width = .5
+    xlocation = np.arange(n)
+
+    # show diagram
+    p1 = plt.bar(xlocation, ai_human, width=bar_width, color="green")
+    p2 = plt.bar(xlocation, human_human, width=bar_width, color="grey")
+    p3 = plt.bar(xlocation, ai_ai, width=bar_width, color="black")
+    p4 = plt.bar(xlocation, human_ai, width=bar_width, color="red")
+
+    # style
+    plt.ylabel('Amount')
+    plt.xlabel('Processor')
+    plt.title('Overview over multiple processors')
+    plt.xticks(xlocation, processors)
+    plt.legend((p1[0], p2[0], p3[0], p4[0]), categories)
+
+    plt.show()
+
+
+
+
+
+
+
 
 """
 change the values of the 1.filters and 2.filepath, then run this file.
@@ -131,9 +186,9 @@ file_path = 'data.csv'
 data_frame = read_csv(file_path)
 
 # filters, change these
-time_interval_filter = ('2024-01-03 00:00:00', '2024-01-05 00:00:00')
+time_interval_filter = ('2024-01-03 00:00:00', '2024-03-05 00:00:00')
 pipeline_processor_filter = ['4']
-group_pipeline_processor_filter = ['naive_processor_image', '1', '2', '3', '4']
+group_pipeline_processor_filter = ['pro:1', 'pro:2', 'pro:1+2']
 text_or_image_filter = 'image'
 
 # execute filter
@@ -142,5 +197,6 @@ group_filtered_data = filter_data(data_frame, text_or_image_filter, time_interva
                                   group_pipeline_processor_filter)
 
 # execute examples
-plot_single_pipeline(filtered_data)
-plot_overview_pipeline(group_filtered_data)
+# plot_single_pipeline(filtered_data) TODO delete completly i guess
+# plot_overview_pipeline(group_filtered_data) TODO delete completly i guess
+plot_overview_pipeline_new(group_filtered_data)
