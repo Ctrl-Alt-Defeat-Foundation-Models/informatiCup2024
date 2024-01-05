@@ -7,8 +7,10 @@ human_ai_color = "crimson"
 human_human_color = "gold"
 ai_ai_color = "darkorange"
 
+
 def read_csv(file_path_param):
     return pd.read_csv(file_path_param)
+
 
 def filter_data(filtered_data_param, text_or_image=None, time_interval=None, pipeline_processors=None):
     """
@@ -24,10 +26,12 @@ def filter_data(filtered_data_param, text_or_image=None, time_interval=None, pip
         filtered_data_param = filtered_data_param[filtered_data_param['text_or_image'] == text_or_image]
     if time_interval is not None:
         start_time, end_time = pd.to_datetime(time_interval[0]), pd.to_datetime(time_interval[1])
-        filtered_data_param = filtered_data_param[pd.to_datetime(filtered_data_param['current_date_time']).between(start_time, end_time)]
+        filtered_data_param = filtered_data_param[
+            pd.to_datetime(filtered_data_param['current_date_time']).between(start_time, end_time)]
     if pipeline_processors is not None:
         filtered_data_param = filtered_data_param[filtered_data_param['pipeline_processors'].isin(pipeline_processors)]
     return filtered_data_param
+
 
 def plot_single_pipeline(filtered_data_param):
     """
@@ -55,17 +59,18 @@ def plot_single_pipeline(filtered_data_param):
         plt.bar(header, selected_header_sums[header], alpha=0.7, width=bar_width, align='center', color=color)
 
     plt.text(0.7, 0.75, 'generator: ' + str(filtered_data_param["pipeline_generator"].values[0]) + "\n"
-             +'processors: ' + str(filtered_data_param["pipeline_processors"].values) + "\n"
-             +'evaluator: ' + str(filtered_data_param["pipeline_evaluator"].values[0]),
+             + 'processors: ' + str(filtered_data_param["pipeline_processors"].values) + "\n"
+             + 'evaluator: ' + str(filtered_data_param["pipeline_evaluator"].values[0]),
              ha='center', va='center', fontsize=12,
              bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'), transform=plt.gcf().transFigure)
-    plt.xlabel('types of runs, example: human_human means that the original image got detected as human and the augmented image also.')
+    plt.xlabel(
+        'types of runs, example: human_human means that the original image got detected as human and the augmented '
+        'image also.')
     plt.ylabel('Count')
     plt.title('Header')
     plt.grid(True)
 
     plt.show()
-
 
 
 def plot_overview_pipeline(filtered_data_param):
@@ -98,11 +103,13 @@ def plot_overview_pipeline(filtered_data_param):
             elif header == "ai_ai":
                 color = ai_ai_color
             if not label:
-                plt.bar(group_positions[i], grouped_filtered_data_header_sum[header], alpha=0.7, width=bar_width, align='center', color=color,
-                    bottom=bottom_values, label=f'{header}')
+                plt.bar(group_positions[i], grouped_filtered_data_header_sum[header], alpha=0.7, width=bar_width,
+                        align='center', color=color,
+                        bottom=bottom_values, label=f'{header}')
             else:
-                plt.bar(group_positions[i], grouped_filtered_data_header_sum[header], alpha=0.7, width=bar_width, align='center', color=color,
-                    bottom=bottom_values)
+                plt.bar(group_positions[i], grouped_filtered_data_header_sum[header], alpha=0.7, width=bar_width,
+                        align='center', color=color,
+                        bottom=bottom_values)
             bottom_values += grouped_filtered_data_header_sum[header]
         label = True
 
@@ -114,6 +121,7 @@ def plot_overview_pipeline(filtered_data_param):
     plt.grid(True)
 
     plt.show()
+
 
 """
 change the values of the 1.filters and 2.filepath, then run this file.
@@ -130,7 +138,8 @@ text_or_image_filter = 'image'
 
 # execute filter
 filtered_data = filter_data(data_frame, text_or_image_filter, time_interval_filter, pipeline_processor_filter)
-group_filtered_data = filter_data(data_frame, text_or_image_filter, time_interval_filter, group_pipeline_processor_filter)
+group_filtered_data = filter_data(data_frame, text_or_image_filter, time_interval_filter,
+                                  group_pipeline_processor_filter)
 
 # execute examples
 plot_single_pipeline(filtered_data)
