@@ -142,11 +142,11 @@ def evaluate_images_for_pipeline(evaluator, generator, processor, images, number
     :param images: images generated as list of tuples (index_0 = unprocessed, index_1 = processed)
     :param number_of_runthroughs_param: number of images generated for this run
     """
-    number_of_detections_before_process = 0
-    number_of_detections_after_process = 0
     text_or_image = "image" if generator.endswith("image") else "text"
     evaluators = evaluator.split("-")
     for current_evaluator in evaluators:
+        number_of_detections_before_process = 0
+        number_of_detections_after_process = 0
         csv_writer = CSVWriter(generator, processor, current_evaluator, text_or_image, number_of_runthroughs_param)
         for image in images:
             is_original_ai = evaluate(current_evaluator, image[0])
