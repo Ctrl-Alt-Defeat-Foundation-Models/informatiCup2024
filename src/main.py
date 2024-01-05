@@ -202,13 +202,13 @@ def generate_images_for_pipeline(generator, number_of_runthroughs_param):
         second_file = "src/output/augmented_image.png"
 
     ret_images = []
+    first_file_start = first_file.split(".")[0]
+    first_file_end = first_file.split(".")[1]
+    second_file_start = second_file.split(".")[0]
+    second_file_end = second_file.split(".")[1]
     while number_of_runthroughs_param > 0:
-        first_file_start = first_file.split(".")[0]
-        first_file_end = first_file.split(".")[1]
         first_file = first_file_start + str(number_of_runthroughs_param) + "." + first_file_end
 
-        second_file_start = second_file.split(".")[0]
-        second_file_end = second_file.split(".")[1]
         second_file = second_file_start + str(number_of_runthroughs_param) + "." + second_file_end
 
         generate(generator, first_file)
