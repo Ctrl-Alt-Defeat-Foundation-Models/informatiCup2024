@@ -213,10 +213,14 @@ def generate_images_for_pipeline(generator, number_of_runthroughs_param):
 
         second_file = second_file_start + str(number_of_runthroughs_param) + "." + second_file_end
 
-        generate(generator, first_file)
-        shutil.copy(first_file, second_file)
-        ret_images.append((first_file, second_file))
-        number_of_runthroughs_param -= 1
+        try:
+            generate(generator, first_file)
+            shutil.copy(first_file, second_file)
+            ret_images.append((first_file, second_file))
+            number_of_runthroughs_param -= 1
+        except UnicodeEncodeError:
+            print("UnicodeEncodeError, ignore this run!")
+
     return ret_images
 
 if __name__ == "__main__":
