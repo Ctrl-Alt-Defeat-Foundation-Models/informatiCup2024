@@ -114,7 +114,7 @@ data_frame = read_csv(file_path)
 # filters, change these
 time_interval_filter = ('2024-01-03 00:00:00', '2024-03-05 00:00:00')
 pipeline_processor_filter = ['4']
-group_pipeline_processor_filter = ['pro:1', 'pro:2', 'pro:1+2']
+group_pipeline_processor_filter = ['s_and_p_processor_image', 'poisson_processor_image', 'naive_processor_image', 'naive_processor_image-poisson_processor_image-s_and_p_processor_image']
 text_or_image_filter = 'image'
 
 # execute filter
@@ -124,5 +124,5 @@ group_filtered_data = filter_data(data_frame, text_or_image_filter, time_interva
 
 # execute examples
 #group by: 1. pipeline_processors 2. pipeline_evaluator
-group_by = "pipeline_evaluator"
+group_by = "pipeline_processors"
 plot_overview_pipeline_new(group_filtered_data, group_by)
