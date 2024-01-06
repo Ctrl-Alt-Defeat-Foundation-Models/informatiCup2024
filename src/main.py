@@ -128,9 +128,11 @@ def evaluate(evaluator: str, input_file_path: str):
 def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
     images = generate_images_for_pipeline(generator, number_of_runthroughs)
 
-    process_images_for_pipeline(processor, images)
+    processors = processor.split("/")
+    for current_processor in processors:
+        process_images_for_pipeline(current_processor, images)
 
-    evaluate_images_for_pipeline(evaluator, generator, processor, images, number_of_runthroughs)
+        evaluate_images_for_pipeline(evaluator, generator, current_processor, images, number_of_runthroughs)
 
 
 def evaluate_images_for_pipeline(evaluator, generator, processor, images, number_of_runthroughs_param):
