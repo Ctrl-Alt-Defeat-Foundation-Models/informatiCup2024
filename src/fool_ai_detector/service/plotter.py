@@ -32,141 +32,67 @@ def filter_data(filtered_data_param, text_or_image=None, time_interval=None, pip
         filtered_data_param = filtered_data_param[filtered_data_param['pipeline_processors'].isin(pipeline_processors)]
     return filtered_data_param
 
-
-def plot_single_pipeline(filtered_data_param):
+def plot_overview_pipeline_new(data, group_by_param):
     """
-    if you want to plot a graph for only one pipeline use this method
-    
-    :param filtered_data_param: 
-    :return: 
-    """
-    headers_to_plot = ['runs', 'human_human', 'ai_ai', 'ai_human', 'human_ai']
-    selected_header_sums = filtered_data_param[headers_to_plot].sum()
-    bar_width = 0.5
-
-    plt.figure(figsize=(10, 6))
-
-    for header in headers_to_plot:
-        color = 'blue'
-        if header == "ai_human":
-            color = ai_human_color
-        elif header == "human_ai":
-            color = human_ai_color
-        elif header == "human_human":
-            color = human_human_color
-        elif header == "ai_ai":
-            color = ai_ai_color
-        plt.bar(header, selected_header_sums[header], alpha=0.7, width=bar_width, align='center', color=color)
-
-    plt.text(0.7, 0.75, 'generator: ' + str(filtered_data_param["pipeline_generator"].values[0]) + "\n"
-             + 'processors: ' + str(filtered_data_param["pipeline_processors"].values) + "\n"
-             + 'evaluator: ' + str(filtered_data_param["pipeline_evaluator"].values[0]),
-             ha='center', va='center', fontsize=12,
-             bbox=dict(facecolor='white', edgecolor='black', boxstyle='round,pad=0.5'), transform=plt.gcf().transFigure)
-    plt.xlabel(
-        'types of runs, example: human_human means that the original image got detected as human and the augmented '
-        'image also.')
-    plt.ylabel('Count')
-    plt.title('Header')
-    plt.grid(True)
-
-    plt.show()
-
-
-def plot_overview_pipeline(filtered_data_param):
-    """
-    if you want to have an overview over many different pipelines, use this method
-
-    :param filtered_data_param:
-    :return:
-    """
-    headers_to_plot = ['human_human', 'ai_ai', 'ai_human', 'human_ai']
-
-    grouped_filtered_data = filtered_data_param.groupby('pipeline_processors')
-    bar_width = 0.3
-    num_groups = len(grouped_filtered_data)
-    group_positions = np.arange(num_groups)
-
-    plt.figure(figsize=(15, 8))
-    label = False
-    for i, (group_name, group_data) in enumerate(grouped_filtered_data):
-        bottom_values = np.zeros(len(headers_to_plot))
-        grouped_filtered_data_header_sum = group_data[headers_to_plot].sum()
-        for j, header in enumerate(headers_to_plot):
-            color = 'blue'
-            if header == "ai_human":
-                color = ai_human_color
-            elif header == "human_ai":
-                color = human_ai_color
-            elif header == "human_human":
-                color = human_human_color
-            elif header == "ai_ai":
-                color = ai_ai_color
-            if not label:
-                plt.bar(group_positions[i], grouped_filtered_data_header_sum[header], alpha=0.7, width=bar_width,
-                        align='center', color=color,
-                        bottom=bottom_values, label=f'{header}')
-            else:
-                plt.bar(group_positions[i], grouped_filtered_data_header_sum[header], alpha=0.7, width=bar_width,
-                        align='center', color=color,
-                        bottom=bottom_values)
-            bottom_values += grouped_filtered_data_header_sum[header]
-        label = True
-
-    plt.xlabel('Alle Header zusammengefasst')
-    plt.ylabel('Anteile')
-    plt.title('Alle Header in einem Balken')
-    plt.xticks(group_positions, grouped_filtered_data.groups.keys())
-    plt.legend()
-    plt.grid(True)
-
-    plt.show()
-
-def plot_overview_pipeline_new(data):
-    """
-    if you want to have an overview over many different pipelines, use this method
+    Plot the data in bar diagram
 
     :param data:
-    :return:
+    :param group_by_param: either groupy by processors or evaluators, nothing else!
     """
-
     # data
     categories = ['ai_human', 'human_human', 'ai_ai', 'human_ai']
-    processors = []
-    evaluators = []
+    combination_pipeline = []
     ai_ai = []
     human_human = []
     ai_human = []
     human_ai = []
 
-    grouped_data = data.groupby(['pipeline_processors', 'pipeline_evaluator'])
-    for i, (group_name, group_data) in enumerate(grouped_data):
-        group_data_sum = group_data[categories].sum()
+    # grouping
+    group_by_list = ["pipeline_processors", "pipeline_evaluator"]
+    group_by_list.remove(group_by_param)
 
-        processors.append(group_name[0]+"\n"+group_name[1])
-        evaluators.append(group_name[1])
+    # init
+    x_location = []
+    last_x_index = 0
 
-        ai_ai.append(group_data_sum[categories[0]])
-        human_human.append(group_data_sum[categories[1]])
-        ai_human.append(group_data_sum[categories[2]])
-        human_ai.append(group_data_sum[categories[3]])
+    grouped_data_outer = data.groupby([group_by_param])
+    for index_outer, (group_name_outer, group_data_outer) in enumerate(grouped_data_outer):
+        grouped_data_inner = group_data_outer.groupby([group_by_list[0]])
+        n = len(group_data_outer)
+        x_location.extend(list(range(last_x_index, last_x_index + n)))
+        last_x_index = last_x_index + n
+        for index_inner, (group_name_inner, group_data_inner) in enumerate(grouped_data_inner):
+            group_data_sum = group_data_inner[categories].sum()
 
-    # diagram params
-    n = len(processors)
-    bar_width = .5
-    xlocation = np.arange(n)
+            combination_pipeline.append(group_name_outer[0]+"\n"+group_name_inner[0])
+
+            ai_ai.append(group_data_sum["ai_ai"])
+            human_human.append(group_data_sum["human_human"])
+            ai_human.append(group_data_sum["ai_human"])
+            human_ai.append(group_data_sum["human_ai"])
+
+        last_x_index = last_x_index + 1 # extra group distance
 
     # show diagram
-    p1 = plt.bar(xlocation, ai_human, width=bar_width, color="green")
-    p2 = plt.bar(xlocation, human_human, width=bar_width, color="grey")
-    p3 = plt.bar(xlocation, ai_ai, width=bar_width, color="black")
-    p4 = plt.bar(xlocation, human_ai, width=bar_width, color="red")
+    bar_width = .5
+
+    bottom_of_bar = [0 for _ in ai_human]
+    p1 = plt.bar(x_location, ai_human, bottom=bottom_of_bar, width=bar_width, color="green")
+
+    bottom_of_bar = ai_human
+    p2 = plt.bar(x_location, human_human, bottom=bottom_of_bar, width=bar_width, color="grey")
+
+    bottom_of_bar = np.add(human_human, bottom_of_bar).tolist()
+    p3 = plt.bar(x_location, ai_ai, bottom=bottom_of_bar, width=bar_width, color="black")
+
+    bottom_of_bar = np.add(ai_ai, bottom_of_bar).tolist()
+    p4 = plt.bar(x_location, human_ai, bottom=bottom_of_bar, width=bar_width, color="red")
 
     # style
     plt.ylabel('Amount')
     plt.xlabel('Processor')
-    plt.title('Overview over multiple processors')
-    plt.xticks(xlocation, processors)
+    plt.title('Overview over multiple combination_pipeline')
+    plt.xticks(x_location, combination_pipeline)
     plt.legend((p1[0], p2[0], p3[0], p4[0]), categories)
 
     plt.show()
@@ -197,6 +123,6 @@ group_filtered_data = filter_data(data_frame, text_or_image_filter, time_interva
                                   group_pipeline_processor_filter)
 
 # execute examples
-# plot_single_pipeline(filtered_data) TODO delete completly i guess
-# plot_overview_pipeline(group_filtered_data) TODO delete completly i guess
-plot_overview_pipeline_new(group_filtered_data)
+#group by: 1. pipeline_processors 2. pipeline_evaluator
+group_by = "pipeline_evaluator"
+plot_overview_pipeline_new(group_filtered_data, group_by)
