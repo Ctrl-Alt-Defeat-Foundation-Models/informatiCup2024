@@ -78,7 +78,7 @@ def process(processor: str, input_file: str, output_file: str):
     elif input_file.endswith('txt') and processor.endswith('text'):
         try:
             processor_model.process(input_file, output_file)
-        except TranslatorError:
+        except:
             print("TranslatorError, probably couse the input_limit was too long, skip the process!")
     else:
         typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
