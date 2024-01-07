@@ -76,7 +76,10 @@ def process(processor: str, input_file: str, output_file: str):
     if (input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and processor.endswith('image'):
         processor_model.process(input_file, output_file)
     elif input_file.endswith('txt') and processor.endswith('text'):
-        processor_model.process(input_file, output_file)
+        try:
+            processor_model.process(input_file, output_file)
+        except TranslatorError:
+            print("TranslatorError, probably couse the input_limit was too long, skip the process!")
     else:
         typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
         raise typer.Exit()
