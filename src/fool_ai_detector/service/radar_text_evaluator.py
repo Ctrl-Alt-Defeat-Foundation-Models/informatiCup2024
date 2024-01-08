@@ -1,13 +1,14 @@
 """
 Evaluator based on the TrustSafeAI/RADAR-Vicuna-7B
 """
-from fool_ai_detector.model.evaluator import Evaluator
 from transformers import pipeline
+
+from fool_ai_detector.model.evaluator import Evaluator
 
 
 class RadarEvaluator(Evaluator):
     """
-    Base class for an Evaluator
+    Radar Evaluator
     """
 
     def evaluate(self, input_file_path) -> bool:

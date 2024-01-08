@@ -1,8 +1,9 @@
 """
 Evaluator based on the AI-image-detector by umm-maybe
 """
-from fool_ai_detector.model.evaluator import Evaluator
 from transformers import pipeline
+
+from fool_ai_detector.model.evaluator import Evaluator
 
 
 class UmmMaybeEvaluator(Evaluator):

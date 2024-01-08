@@ -4,6 +4,7 @@ import numpy
 
 from fool_ai_detector.service.sandp_processor import SAndPProcessor
 
+
 class TestSAndPProcessor:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_generator_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',

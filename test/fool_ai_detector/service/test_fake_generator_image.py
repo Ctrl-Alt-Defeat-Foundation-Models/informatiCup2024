@@ -1,11 +1,13 @@
-from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 import os
+
+from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 
 
 class TestFakeGeneratorImage:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_dir_path = os.path.join(base_path_this_class, '..', '..', 'test_output', 'fake_generator_images')
-    output_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output', 'fake_generator_images', 'fake_generator_images.png')
+    output_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output', 'fake_generator_images',
+                                    'fake_generator_images.png')
 
     def set_up(self):
         """
