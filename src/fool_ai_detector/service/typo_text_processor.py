@@ -7,7 +7,7 @@ import typo
 from fool_ai_detector.model.processor import Processor
 
 
-class TypoProcessorText(Processor):
+class TypoProcessor(Processor):
     """
     Typo Processor
     """

@@ -2,7 +2,7 @@ import os
 import skimage.io
 import numpy
 
-from fool_ai_detector.service.sandp_processor import SAndPProcessor
+from fool_ai_detector.service.s_and_p_processor import SAndPProcessor
 
 
 class TestSAndPProcessor:
