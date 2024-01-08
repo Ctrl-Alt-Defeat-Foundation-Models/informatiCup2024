@@ -14,6 +14,7 @@ from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvalua
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
 from fool_ai_detector.service.dalle_image_generator import DalleImageGenerator
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
+from fool_ai_detector.service.falcon_text_generator import FalconRW1BTextGenerator
 from fool_ai_detector.service.typo_text_processor import TypoProcessorText
 from fool_ai_detector.service.poisson_processor import PoissonProcessor
 from fool_ai_detector.service.sandp_processor import SAndPProcessor
@@ -42,6 +43,9 @@ def generate(generator: str, output_file_path: str):
         case("dallE_generator_image"):
             typer.echo("Using DallE image generator")
             generator_model = DalleImageGenerator()
+        case ("falcon_generator_text"):
+            typer.echo("Using Falcon text generator")
+            generator_model = FalconRW1BTextGenerator()
         case _:
             typer.secho("Error given generator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
