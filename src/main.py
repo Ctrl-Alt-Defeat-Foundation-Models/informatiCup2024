@@ -17,6 +17,7 @@ from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 from fool_ai_detector.service.typo_text_processor import TypoProcessorText
 from fool_ai_detector.service.poisson_processor import PoissonProcessor
 from fool_ai_detector.service.sandp_processor import SAndPProcessor
+from fool_ai_detector.service.speckle_processor import SpeckleProcessor
 from fool_ai_detector.service.resnet18_evaluator import Resnet18Evaluator
 from fool_ai_detector.service.CSVWriter import CSVWriter
 
@@ -70,6 +71,9 @@ def process(processor: str, input_file: str, output_file: str):
             case "translator_processor_text":
                 typer.echo("Using translator_processor")
                 processor_model = TranslatorProcessor()
+            case "speckle_processor_image":
+                typer.echo("Using speckle_processor")
+                processor_model = SpeckleProcessor()
             case _:
                 typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
                 raise typer.Exit()

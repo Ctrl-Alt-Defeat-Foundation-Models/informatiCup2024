@@ -2,17 +2,17 @@ import os
 import skimage.io
 import numpy
 
-from fool_ai_detector.service.poisson_processor import PoissonProcessor
+from fool_ai_detector.service.speckle_processor import SpeckleProcessor
 
 
-class TestPoissonProcessor:
+class TestSpeckleProcessor:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_generator_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',
                                               'fool_ai_detector', 'resources', 'ai_gen_images', 'clownfish.png')
     output_processor_directory_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                                   'poisson_processor')
+                                                   'speckle_processor')
     output_processor_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                              'poisson_processor', 'processed_clownfish.png')
+                                              'speckle_processor', 'processed_clownfish.png')
 
     def set_up(self):
         """
@@ -24,8 +24,8 @@ class TestPoissonProcessor:
     def test_process(self):
         self.set_up()
 
-        poisson_processor = PoissonProcessor()
-        poisson_processor.process(self.output_generator_file_path, self.output_processor_file_path)
+        speckle_processor = SpeckleProcessor()
+        speckle_processor.process(self.output_generator_file_path, self.output_processor_file_path)
 
         image_input = skimage.io.imread(self.output_generator_file_path)
         image_output = skimage.io.imread(self.output_processor_file_path)
