@@ -16,9 +16,9 @@ from fool_ai_detector.service.dalle_image_generator import DalleImageGenerator
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 from fool_ai_detector.service.typo_text_processor import TypoProcessorText
 from fool_ai_detector.service.poisson_processor import PoissonProcessor
-from fool_ai_detector.service.sandp_processor import SAndPProcessor
+from fool_ai_detector.service.s_and_p_processor import SAndPProcessor
 from fool_ai_detector.service.resnet18_evaluator import Resnet18Evaluator
-from fool_ai_detector.service.CSVWriter import CSVWriter
+from fool_ai_detector.service.csv_writer import CSVWriter
 
 app = typer.Typer()
 
