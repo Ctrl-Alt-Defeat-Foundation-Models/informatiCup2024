@@ -20,7 +20,7 @@ class TestFalconGenerator:
 
         falcon_generator = FalconRW1BTextGenerator()
         falcon_generator.generate(os.path.join(self.output_dir_path, 'test_text.txt'),
-                                          "The University of Stuttgart is")
+                                  "The University of Stuttgart is")
 
         filelist = os.listdir(self.output_dir_path)
         assert len(filelist) == 1

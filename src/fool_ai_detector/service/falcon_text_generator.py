@@ -4,7 +4,8 @@ Generator based on the Falcon-RW-1B  model
 from pathlib import Path
 
 import torch.cuda
-from transformers import pipeline
+import transformers
+from transformers import AutoTokenizer
 
 from fool_ai_detector.model.generator import Generator
 
@@ -21,11 +22,12 @@ class FalconRW1BTextGenerator(Generator):
         :param prompt: Prompt to generate the text from
         :param output_file_path: Path, where the generated text is saved
         """
-        if torch.cuda.is_available():
-            pipe = pipeline("text-generation", model="tiiuae/falcon-rw-1b", top_k=1, device=0)
-        else:
-            pipe = pipeline("text-generation", model="tiiuae/falcon-rw-1b", top_k=1)
+        model = "tiiuae/falcon-rw-1b"
 
-        result = pipe(prompt)
-        text = result[0]["generated_text"]
-        Path(output_file_path).write_text(text)
+        tokenizer = AutoTokenizer.from_pretrained(model)
+        pipeline = transformers.pipeline("text-generation", model=model, tokenizer=tokenizer,
+                                         torch_dtype=torch.bfloat16, device_map="auto")
+        sequences = pipeline("The University of Stuttgart is", max_length=200, do_sample=True,
+                             eos_token_id=tokenizer.eos_token_id, pad_token_id=2)
+
+        Path(output_file_path).write_text(sequences[0]["generated_text"])
