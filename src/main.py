@@ -40,9 +40,6 @@ def generate(generator: str, output_file_path: str):
         case "stable_diffusion_generator_image":
             typer.echo("Using stable_diffusion_generator")
             generator_model = StableDiffusionImageGenerator()
-        case "gpt2_generator_text":
-            typer.echo("Using GPT2 text generator")
-            generator_model = GPT2TextGenerator()
         case "dallE_generator_image":
             typer.echo("Using DallE image generator")
             generator_model = DalleImageGenerator()
