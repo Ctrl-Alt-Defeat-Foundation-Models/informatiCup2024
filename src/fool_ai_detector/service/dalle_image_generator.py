@@ -20,8 +20,8 @@ class DalleImageGenerator(Generator):
         """
 
         if torch.cuda.is_available():
-            pipe = AutoPipelineForText2Image.from_pretrained('dataautogpt3/OpenDalle',
-                                                             torch_dtype=torch.float16).to('cuda')
+            pipe = AutoPipelineForText2Image.from_pretrained('dataautogpt3/OpenDalle', torch_dtype=torch.float16,
+                                                             offload_state_dict=True).to('cuda')
         else:
             pipe = AutoPipelineForText2Image.from_pretrained('dataautogpt3/OpenDalle')
 
