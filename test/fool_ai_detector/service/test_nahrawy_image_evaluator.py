@@ -1,5 +1,6 @@
-from fool_ai_detector.service.nahrawy_image_evaluator import NahrawyEvaluator
 import os
+
+from fool_ai_detector.service.nahrawy_image_evaluator import NahrawyEvaluator
 
 
 class TestNahrawyEvaluator:
@@ -8,7 +9,6 @@ class TestNahrawyEvaluator:
                                               'fool_ai_detector', 'resources', 'ai_gen_images', 'clownfish.png')
 
     def test_normal_evaluation(self):
-
         nahrawy_evaluator = NahrawyEvaluator()
         is_fake = nahrawy_evaluator.evaluate(self.output_processor_file_path)
 

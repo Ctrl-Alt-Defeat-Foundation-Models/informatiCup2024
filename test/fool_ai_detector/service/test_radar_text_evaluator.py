@@ -1,4 +1,5 @@
 import os
+
 from fool_ai_detector.service.radar_text_evaluator import RadarEvaluator
 
 

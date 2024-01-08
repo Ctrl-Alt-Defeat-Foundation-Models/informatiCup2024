@@ -1,3 +1,6 @@
+"""
+Generator based on the AI images provided in the resources folder
+"""
 import skimage
 import os
 import random
@@ -6,6 +9,9 @@ from fool_ai_detector.model.generator import Generator
 
 
 class FakeGeneratorImage(Generator):
+    """
+    Fake image generator
+    """
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     dir_path = os.path.join(base_path_this_class, '..', 'resources', 'ai_gen_images')
     images = []
@@ -15,7 +21,6 @@ class FakeGeneratorImage(Generator):
             if os.path.isfile(os.path.join(self.dir_path, image)):
                 self.images.append(os.path.join(self.dir_path, image))
 
-                
     def generate(self, output_file_path, prompt="nothing"):
         """
         Method that takes one random image of the ai_gen_image directory and puts it in another directory.

@@ -1,8 +1,9 @@
 """
 Evaluator based on the AI-image-detector by Nahrawy
 """
-from fool_ai_detector.model.evaluator import Evaluator
 from transformers import pipeline
+
+from fool_ai_detector.model.evaluator import Evaluator
 
 
 class NahrawyEvaluator(Evaluator):

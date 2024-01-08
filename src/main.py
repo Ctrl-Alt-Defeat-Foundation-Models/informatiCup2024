@@ -33,13 +33,13 @@ def generate(generator: str, output_file_path: str):
         case "fake_generator_image":
             typer.echo("Using fake_generator_image")
             generator_model = FakeGeneratorImage()
-        case ("stable_diffusion_generator_image"):
+        case "stable_diffusion_generator_image":
             typer.echo("Using stable_diffusion_generator")
             generator_model = StableDiffusionImageGenerator()
-        case("gpt2_generator_text"):
+        case "gpt2_generator_text":
             typer.echo("Using GPT2 text generator")
             generator_model = GPT2TextGenerator()
-        case("dallE_generator_image"):
+        case "dallE_generator_image":
             typer.echo("Using DallE image generator")
             generator_model = DalleImageGenerator()
         case _:
@@ -77,12 +77,14 @@ def process(processor: str, input_file: str, output_file: str):
             case _:
                 typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
                 raise typer.Exit()
-    if (input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and processor.endswith('image'):
+    if (input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and processor.endswith(
+            'image'):
         processor_model.process(input_file, output_file)
     elif input_file.endswith('txt') and processor.endswith('text'):
         processor_model.process(input_file, output_file)
     else:
-        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True,
+                    fg=typer.colors.RED)
         raise typer.Exit()
 
 
@@ -107,10 +109,12 @@ def evaluate(evaluator: str, input_file_path: str):
         case _:
             typer.secho("Error given evaluator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
-    if (input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg')) and evaluator.endswith('image'):
+    if (input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith(
+            'jpeg')) and evaluator.endswith('image'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
+            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN,
+                        bold=True)
             return True
         else:
             typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
@@ -118,18 +122,21 @@ def evaluate(evaluator: str, input_file_path: str):
     elif input_file_path.endswith('txt') and evaluator.endswith('text'):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
+            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN,
+                        bold=True)
             return True
         else:
             typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
             return False
     else:
-        typer.secho("The format of the file is not consistent with the format of the evaluator", err=True, fg=typer.colors.RED)
+        typer.secho("The format of the file is not consistent with the format of the evaluator", err=True,
+                    fg=typer.colors.RED)
         raise typer.Exit()
 
 
 @app.command()
-def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
+def pipeline(generator: str, processor: str, evaluator: str,
+             number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
     images = generate_images_for_pipeline(generator, number_of_runthroughs)
 
     processors = processor.split("/")
@@ -226,6 +233,7 @@ def generate_images_for_pipeline(generator, number_of_runthroughs_param):
             print("UnicodeEncodeError, ignore this run!")
 
     return ret_images
+
 
 if __name__ == "__main__":
     app()
