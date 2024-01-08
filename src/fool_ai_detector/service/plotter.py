@@ -12,7 +12,7 @@ def read_csv(file_path_param):
     return pd.read_csv(file_path_param)
 
 
-def filter_data(filtered_data_param, text_or_image=None, time_interval=None, pipeline_processors=None):
+def filter_data(filtered_data_param, text_or_image=None, time_interval=None, pipeline_processors=None, pipeline_generator=None):
     """
     whitelist filter of data
     
@@ -30,6 +30,8 @@ def filter_data(filtered_data_param, text_or_image=None, time_interval=None, pip
             pd.to_datetime(filtered_data_param['current_date_time']).between(start_time, end_time)]
     if pipeline_processors is not None:
         filtered_data_param = filtered_data_param[filtered_data_param['pipeline_processors'].isin(pipeline_processors)]
+    if pipeline_generator is not None:
+        filtered_data_param = filtered_data_param[filtered_data_param['pipeline_generator'] == pipeline_generator]
     return filtered_data_param
 
 def plot_overview_pipeline_new(data, group_by_param):
@@ -64,7 +66,7 @@ def plot_overview_pipeline_new(data, group_by_param):
         for index_inner, (group_name_inner, group_data_inner) in enumerate(grouped_data_inner):
             group_data_sum = group_data_inner[categories].sum()
 
-            combination_pipeline.append(group_name_outer[0]+"\n"+group_name_inner[0])
+            combination_pipeline.append(str(group_name_outer[0])+"\n"+str(group_name_inner[0]))
 
             ai_ai.append(group_data_sum["ai_ai"])
             human_human.append(group_data_sum["human_human"])
@@ -90,8 +92,9 @@ def plot_overview_pipeline_new(data, group_by_param):
 
     # style
     plt.ylabel('Amount')
-    plt.xlabel('Processor')
-    plt.title('Overview over multiple combination_pipeline')
+    plt.xlabel('Processors & Evaluators')
+    plt.title('Overview over multiple combination_pipeline \n (gaussian/poisson/s_and_p/speckle = 1/2/3/4, umm_maybe/resnet/nahrawy = 1/2/3)')
+    #plt.title('Overview over multiple combination_pipeline \n ("  "/typo = 1/2, roberta/radar = 1/2)')
     plt.xticks(x_location, combination_pipeline)
     plt.legend((p1[0], p2[0], p3[0], p4[0]), categories)
 
@@ -114,15 +117,15 @@ data_frame = read_csv(file_path)
 # filters, change these
 time_interval_filter = ('2024-01-03 00:00:00', '2024-03-05 00:00:00')
 pipeline_processor_filter = ['4']
-group_pipeline_processor_filter = ['s_and_p_processor_image', 'poisson_processor_image', 'naive_processor_image', 'naive_processor_image-poisson_processor_image-s_and_p_processor_image']
+group_pipeline_processor_filter = None #['1', '2', '3', '4', ]
+group_pipeline_generator_filter = 'dallE_generator_image'
 text_or_image_filter = 'image'
 
 # execute filter
-filtered_data = filter_data(data_frame, text_or_image_filter, time_interval_filter, pipeline_processor_filter)
 group_filtered_data = filter_data(data_frame, text_or_image_filter, time_interval_filter,
-                                  group_pipeline_processor_filter)
+                                  group_pipeline_processor_filter, group_pipeline_generator_filter)
 
 # execute examples
-#group by: 1. pipeline_processors 2. pipeline_evaluator
+# group by: 1. pipeline_processors 2. pipeline_evaluator
 group_by = "pipeline_processors"
 plot_overview_pipeline_new(group_filtered_data, group_by)
