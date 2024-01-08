@@ -18,7 +18,7 @@ class TestTranslatorProcessor:
         if not os.path.exists(self.output_processor_directory_path):
             os.makedirs(self.output_processor_directory_path)
 
-    def test_process(self):
+    def test_translator_process(self):
         self.set_up()
 
         translator_processor = TranslatorProcessor()

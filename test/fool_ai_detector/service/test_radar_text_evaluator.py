@@ -22,7 +22,7 @@ class TestRadarEvaluator:
         with open(self.TEST_FILE, "w") as text_file:
             text_file.write(self.TEST_TEXT)
 
-    def test_normal_evaluation(self):
+    def test_radar_evaluation(self):
         self.set_up()
 
         radar_evaluator = RadarEvaluator()

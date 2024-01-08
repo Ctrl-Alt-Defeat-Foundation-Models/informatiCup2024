@@ -1,14 +1,14 @@
 """
-Text processor based on the idea of using two white-space instead of one
+Text processor based on the idea of using two white-spaces instead of one
 """
 from pathlib import Path
 
 from fool_ai_detector.model.processor import Processor
 
 
-class NaiveBaselineProcessorText(Processor):
+class DoubleWhitespaceProcessor(Processor):
     """
-    Naive Baseline Processor
+    Text processor that uses two white-spaces instead of one
     """
     def process(self, input_file_path, output_file_path):
         """

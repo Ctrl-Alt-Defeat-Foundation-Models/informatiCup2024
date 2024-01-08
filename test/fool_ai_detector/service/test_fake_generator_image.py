@@ -16,7 +16,7 @@ class TestFakeGeneratorImage:
         if not os.path.exists(self.output_dir_path):
             os.makedirs(self.output_dir_path)
 
-    def test_normal_generation(self):
+    def test_fake_generator_image_generation(self):
         self.set_up()
         self.clear_test_output()
 

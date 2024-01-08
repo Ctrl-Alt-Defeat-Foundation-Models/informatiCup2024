@@ -1,5 +1,5 @@
 """
-Processor based on the idea of making mistakes while typing
+Processor based on the idea of making mistakes while typing (typo)
 """
 from pathlib import Path
 import typo
@@ -17,7 +17,7 @@ class TypoProcessor(Processor):
         Add some typos to the generated text and saves it.
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
-        :param words_per_error: how many words should have a typo
+        :param words_per_error: number of consecutive words that contain one error
         """
         text = Path(input_file_path).read_text()
         augmented_text = ''

@@ -20,7 +20,7 @@ class TestRobertaBaseEvaluator:
         with open("berlin.txt", "w") as text_file:
             text_file.write(self.TEST_TEXT)
 
-    def test_normal_evaluation(self):
+    def test_roberta_base_evaluation(self):
         self.set_up()
 
         roberta_evaluator = RobertaBaseEvaluator()

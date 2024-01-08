@@ -1,15 +1,15 @@
 import os
 from pathlib import Path
 
-from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaselineProcessorText
+from fool_ai_detector.service.double_whitespace_processor_text import DoubleWhitespaceProcessor
 
 
-class TestNaiveBaselineProcessorText:
+class TestDoubleWhitespaceProcessor:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_generator_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',
                                               'fool_ai_detector', 'resources', 'ai_gen_text', 'alpen.txt')
     output_processor_directory_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                                   'naive_processor_texts')
+                                                   'double_whitespace_processor_texts')
     output_processor_file_path = os.path.join(output_processor_directory_path, 'processed_alpen.txt')
 
     def set_up(self):
@@ -22,8 +22,8 @@ class TestNaiveBaselineProcessorText:
     def test_process(self):
         self.set_up()
 
-        naive_baseline_processor = NaiveBaselineProcessorText()
-        naive_baseline_processor.process(self.output_generator_file_path, self.output_processor_file_path)
+        double_whitespace_processor = DoubleWhitespaceProcessor()
+        double_whitespace_processor.process(self.output_generator_file_path, self.output_processor_file_path)
 
         origin_text_occurrences = Path(self.output_generator_file_path).read_text().count(' ')
         augmented_text_occurrences = Path(self.output_processor_file_path).read_text().count('  ')

@@ -9,11 +9,11 @@ from fool_ai_detector.model.processor import Processor
 
 class SAndPProcessor(Processor):
     """
-    Sand and Pepper Processor
+    Salt and Pepper Processor
     """
     def process(self, input_file_path, output_file_path):
         """
-        Adds a salt and pepper noise to an image to augment it.
+        Adds salt and pepper noise to an image to augment it.
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
         """
