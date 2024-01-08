@@ -1,11 +1,11 @@
 """
-Evaluator based on the roberta_base_openai_detector
+Evaluator based on the TrustSafeAI/RADAR-Vicuna-7B
 """
 from fool_ai_detector.model.evaluator import Evaluator
 from transformers import pipeline
 
 
-class RobertaBaseEvaluator(Evaluator):
+class RadarEvaluator(Evaluator):
     """
     Base class for an Evaluator
     """
@@ -18,7 +18,7 @@ class RobertaBaseEvaluator(Evaluator):
         """
         file = open(input_file_path, "r")
         text = file.read()
-        pipe = pipeline("text-classification", model="roberta-base-openai-detector", max_length=512, truncation=True)
+        pipe = pipeline("text-classification", model="TrustSafeAI/RADAR-Vicuna-7B", max_length=512, truncation=True)
         output = pipe(text)
         label = output[0]["label"]
         if label == "Real":
