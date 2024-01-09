@@ -30,4 +30,4 @@ class FalconRW1BTextGenerator(Generator):
         sequences = pipeline(prompt, max_length=200, do_sample=True,
                              eos_token_id=tokenizer.eos_token_id, pad_token_id=2)
 
-        Path(output_file_path).write_text(sequences[0]["generated_text"])
+        Path(output_file_path).write_text(sequences[0]["generated_text"], encoding="utf-8")
