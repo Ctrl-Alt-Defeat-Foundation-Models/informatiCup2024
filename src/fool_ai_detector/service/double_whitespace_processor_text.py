@@ -14,6 +14,7 @@ class DoubleWhitespaceProcessor(Processor):
     def process(self, input_file_path, output_file_path):
         """
         Replaces every occurrence of a white-space with double white-space to augment a text.
+
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
         """

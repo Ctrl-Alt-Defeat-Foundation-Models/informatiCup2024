@@ -15,6 +15,7 @@ class TranslatorProcessor(Processor):
     def process(self, input_file_path, output_file_path):
         """
         Translates the input file into another language and then back to english.
+
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
         """

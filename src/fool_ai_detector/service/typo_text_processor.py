@@ -15,6 +15,7 @@ class TypoProcessor(Processor):
     def process(self, input_file_path, output_file_path, words_per_error=5):
         """
         Add some typos to the generated text and saves it.
+
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
         :param words_per_error: number of consecutive words that contain one error

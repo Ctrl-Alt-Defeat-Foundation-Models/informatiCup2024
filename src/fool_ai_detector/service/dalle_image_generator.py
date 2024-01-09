@@ -15,6 +15,7 @@ class DalleImageGenerator(Generator):
     def generate(self, output_file_path, prompt="Generate a realistic random image"):
         """
         Generates an image out of a prompt
+
         :param output_file_path: Path, where the generated image is saved
         :param prompt: Prompt to generate the image from
         """

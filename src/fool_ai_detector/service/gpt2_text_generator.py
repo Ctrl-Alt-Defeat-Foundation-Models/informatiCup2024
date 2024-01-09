@@ -17,6 +17,7 @@ class GPT2TextGenerator(Generator):
     def generate(self, output_file_path, prompt="Generate a random text"):
         """
         Generates a text out of a prompt
+
         :param output_file_path: Path, where the generated text is saved
         :param prompt: Prompt to generate the text from
         """

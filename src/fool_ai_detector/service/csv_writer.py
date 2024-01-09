@@ -20,6 +20,7 @@ class CSVWriter:
     def __init__(self, generator, processors, evaluator, text_or_image, runs):
         """
         Constructor for CSV Writer
+
         :param generator: the generator used
         :param processors: the processors used
         :param evaluator: the evaluator used

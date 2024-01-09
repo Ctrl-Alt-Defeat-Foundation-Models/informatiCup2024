@@ -25,6 +25,7 @@ class FakeGeneratorImage(Generator):
     def generate(self, output_file_path, prompt="nothing"):
         """
         Method that takes one random image of the ai_gen_image directory and puts it in another directory.
+
         :param output_file_path: Path, where the generated image should be written to
         :param prompt: Text (multiple words, sentences) defining the theme of the generated image.
         """
