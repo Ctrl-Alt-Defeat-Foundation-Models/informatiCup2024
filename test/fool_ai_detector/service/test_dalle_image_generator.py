@@ -15,7 +15,7 @@ class TestDalleImageGenerator:
         if not os.path.exists(self.output_file_path):
             os.makedirs(self.output_file_path)
 
-    def test_generation(self):
+    def test_dalle_generation(self):
         self.set_up()
         self.clear_test_output()
 

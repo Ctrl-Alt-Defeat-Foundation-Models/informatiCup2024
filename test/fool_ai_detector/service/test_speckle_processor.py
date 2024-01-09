@@ -21,7 +21,7 @@ class TestSpeckleProcessor:
         if not os.path.exists(self.output_processor_directory_path):
             os.makedirs(self.output_processor_directory_path)
 
-    def test_process(self):
+    def test_speckle_process(self):
         self.set_up()
 
         speckle_processor = SpeckleProcessor()
