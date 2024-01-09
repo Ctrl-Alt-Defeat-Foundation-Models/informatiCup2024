@@ -2,17 +2,17 @@ import os
 import skimage.io
 import numpy
 
-from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
+from fool_ai_detector.service.s_and_p_processor import SAndPProcessor
 
 
-class TestNaiveBaselineProcessorImage:
+class TestSAndPProcessor:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_generator_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',
                                               'fool_ai_detector', 'resources', 'ai_gen_images', 'clownfish.png')
     output_processor_directory_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                                   'naive_processor_images')
+                                                   's_and_p_processor_images')
     output_processor_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output',
-                                              'naive_processor_images', 'processed_clownfish.png')
+                                              's_and_p_processor_images', 'processed_clownfish.png')
 
     def set_up(self):
         """
@@ -21,11 +21,11 @@ class TestNaiveBaselineProcessorImage:
         if not os.path.exists(self.output_processor_directory_path):
             os.makedirs(self.output_processor_directory_path)
 
-    def test_process(self):
+    def test_s_and_p_process(self):
         self.set_up()
 
-        naive_baseline_processor = NaiveBaselineProcessorImage()
-        naive_baseline_processor.process(self.output_generator_file_path, self.output_processor_file_path)
+        sandp_processor = SAndPProcessor()
+        sandp_processor.process(self.output_generator_file_path, self.output_processor_file_path)
 
         image_input = skimage.io.imread(self.output_generator_file_path)
         image_output = skimage.io.imread(self.output_processor_file_path)
