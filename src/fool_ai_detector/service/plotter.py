@@ -63,7 +63,7 @@ def plot_overview_pipeline_new(data, group_by_param):
     grouped_data_outer = data.groupby([group_by_param])
     for index_outer, (group_name_outer, group_data_outer) in enumerate(grouped_data_outer):
         grouped_data_inner = group_data_outer.groupby([group_by_list[0]])
-        n = len(group_data_outer)
+        n = len(grouped_data_inner)
         x_location.extend(list(range(last_x_index, last_x_index + n)))
         last_x_index = last_x_index + n
         for index_inner, (group_name_inner, group_data_inner) in enumerate(grouped_data_inner):
@@ -97,7 +97,8 @@ def plot_overview_pipeline_new(data, group_by_param):
     plot.ylabel('Amount')
     plot.xlabel('Processors & Evaluators')
     plot.title(
-        'Overview over multiple combination_pipeline \n (gaussian/poisson/s_and_p/speckle = 1/2/3/4, umm_maybe/resnet/nahrawy = 1/2/3)', fontdict={"fontsize": 40}, pad=20)
+        'Overview over multiple combination_pipeline \n (gaussian/poisson/s_and_p/speckle = 1/2/3/4, '
+        'umm_maybe/resnet/nahrawy = 1/2/3)', fontdict={"fontsize": 40}, pad=20)
     plot.xticks(x_location, combination_pipeline, rotation='vertical')
     plot.legend((p1[0], p2[0], p3[0], p4[0]), categories)
 
@@ -106,12 +107,12 @@ def plot_overview_pipeline_new(data, group_by_param):
 
 # change the values of the 1.filters and 2.filepath, then run this file.
 # example plots
-file_path = 'data.csv'
+file_path = '../../../data.csv'
 data_frame = read_csv(file_path)
 
 # filters, change these
 time_interval_filter = ('2024-01-03 00:00:00', '2024-03-05 00:00:00')
-pipeline_processor_filter = ['4']
+pipeline_processor_filter = None
 group_pipeline_processor_filter = None  # ['1', '2', '3', '4', ]
 group_pipeline_generator_filter = 'dallE_generator_image'
 text_or_image_filter = 'image'
