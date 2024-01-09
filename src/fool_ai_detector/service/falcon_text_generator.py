@@ -1,5 +1,5 @@
 """
-Generator based on the Falcon-RW-1B  model
+Generator based on the Falcon-RW-1B model
 """
 from pathlib import Path
 
