@@ -38,17 +38,17 @@ open
 																	umm_maybe_evaluator_image-resnet18_evaluator_image-nahrawy_evaluator_image 100
 DONE:
 
-LEVI
+MAX
 !fad pipeline gpt2_generator_text 
 					double_whitespace_processor_text/👍  300
 					typo_processor_text/👍   300
 					                                                                            translator_processor_text/
-					double_whitespace_processor_text-typo_processor_text/   ❌
+					double_whitespace_processor_text-typo_processor_text/👍   100
                                                                                                 double_whitespace_processor_text-translator_processor_text/
                                                                                                 typo_processor_text-translator_processor_text/
                                                                                                 double_whitespace_processor_text-typo_processor_text-translator_processor_text
 				                                                    roberta_evaluator_text-radar_evaluator_text 100 + 100
-DONE:
+DONE: 👍
 
 MAX
 !fad pipeline falcon_generator_text
