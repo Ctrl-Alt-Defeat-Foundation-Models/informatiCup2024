@@ -3,3 +3,5 @@ current_date_time,pipeline_generator,pipeline_processors,pipeline_evaluator,text
 2024-01-09 13:28:10,falcon_generator_text,double_whitespace_processor_text,radar_evaluator_text,text,100,0,100,0,0
 2024-01-09 13:53:32,falcon_generator_text,typo_processor_text,roberta_evaluator_text,text,100,10,0,89,1
 2024-01-09 13:59:45,falcon_generator_text,typo_processor_text,radar_evaluator_text,text,100,0,100,0,0
+2024-01-09 16:25:52,falcon_generator_text,double_whitespace_processor_text-typo_processor_text,radar_evaluator_text,text,100,0,100,0,0
+2024-01-09 16:49:54,falcon_generator_text,double_whitespace_processor_text-typo_processor_text,roberta_evaluator_text,text,100,10,0,90,0

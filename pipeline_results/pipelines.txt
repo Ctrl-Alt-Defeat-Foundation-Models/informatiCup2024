@@ -55,9 +55,9 @@ MAX
 					double_whitespace_processor_text/👍  100
 					typo_processor_text/👍   100
 					                                                                            translator_processor_text/
-					double_whitespace_processor_text-typo_processor_text/
+					double_whitespace_processor_text-typo_processor_text/👍
                                                                                                 double_whitespace_processor_text-translator_processor_text/
                                                                                                 typo_processor_text-translator_processor_text/
                                                                                                 double_whitespace_processor_text-typo_processor_text-translator_processor_text
 					                                                roberta_evaluator_text-radar_evaluator_text 100 + 100
-DONE:
+DONE:👍
