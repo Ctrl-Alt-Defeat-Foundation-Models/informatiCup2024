@@ -24,7 +24,7 @@ class TranslatorProcessor(Processor):
         Path(output_file_path).write_text(augmented_text)
 
 
-def split_and_combine(text, max_length=500):
+def split_and_combine(text, max_length=1000):
     sentences = text.split('. ')
 
     parts = []
