@@ -18,9 +18,9 @@ class FalconRW1BTextGenerator(Generator):
     def generate(self, output_file_path, prompt="The university of Stuttgart is"):
         """
         Generates a text out of a prompt
-
-        :param prompt: Prompt to generate the text from
+        
         :param output_file_path: Path, where the generated text is saved
+        :param prompt: Prompt to generate the text from
         """
         model = "tiiuae/falcon-rw-1b"
 
