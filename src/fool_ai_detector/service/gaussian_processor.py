@@ -1,5 +1,5 @@
 """
-Image processor based on the gaussian noise
+Gaussian noise image processor
 """
 import numpy as np
 import skimage

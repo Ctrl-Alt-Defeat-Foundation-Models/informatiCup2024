@@ -1,5 +1,5 @@
 """
-Image processor based on the salt and pepper noise
+Salt and pepper noise image processor
 """
 import numpy as np
 import skimage

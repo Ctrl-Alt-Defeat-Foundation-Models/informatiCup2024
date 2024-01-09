@@ -1,5 +1,5 @@
 """
-Image processor based on the speckle noise
+Speckle noise image processor
 """
 import numpy as np
 import skimage

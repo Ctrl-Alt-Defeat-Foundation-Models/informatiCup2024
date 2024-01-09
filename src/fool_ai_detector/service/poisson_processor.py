@@ -1,5 +1,5 @@
 """
-Image processor based on the poisson noise
+Poisson noise image processor
 """
 import numpy as np
 import skimage
