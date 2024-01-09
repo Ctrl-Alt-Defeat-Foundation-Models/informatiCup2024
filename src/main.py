@@ -5,6 +5,7 @@ from typing import Optional
 
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
+from fool_ai_detector.service.falcon_text_generator import FalconRW1BTextGenerator
 from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
 from fool_ai_detector.service.dalle_image_generator import DalleImageGenerator
@@ -34,6 +35,9 @@ def generate(generator: str, output_file_path: str):
         case "gpt2_generator_text":
             typer.echo("Using GPT2 text generator")
             generator_model = GPT2TextGenerator()
+        case "falcon_generator_text":
+            typer.echo("Using Falcon text generator")
+            generator_model = FalconRW1BTextGenerator()
         case "fake_generator_image":
             typer.echo("Using fake_generator_image")
             generator_model = FakeGeneratorImage()
