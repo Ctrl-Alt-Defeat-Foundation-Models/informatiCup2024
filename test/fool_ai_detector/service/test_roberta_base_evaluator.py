@@ -1,5 +1,6 @@
-from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
 import os
+
+from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
 
 
 class TestRobertaBaseEvaluator:
@@ -19,7 +20,7 @@ class TestRobertaBaseEvaluator:
         with open("berlin.txt", "w") as text_file:
             text_file.write(self.TEST_TEXT)
 
-    def test_normal_evaluation(self):
+    def test_roberta_base_evaluation(self):
         self.set_up()
 
         roberta_evaluator = RobertaBaseEvaluator()

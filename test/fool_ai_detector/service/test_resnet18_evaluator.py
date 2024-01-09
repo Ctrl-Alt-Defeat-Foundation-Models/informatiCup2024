@@ -8,7 +8,7 @@ class TestResnet18Evaluator:
     output_processor_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',
                                               'fool_ai_detector', 'resources', 'ai_gen_images', 'clownfish.png')
 
-    def test_normal_evaluation(self):
+    def test_resnet18_evaluation(self):
 
         resnet18_evaluator = Resnet18Evaluator()
         is_fake = resnet18_evaluator.evaluate(self.output_processor_file_path)

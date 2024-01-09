@@ -1,10 +1,10 @@
 import os
 from pathlib import Path
 
-from fool_ai_detector.service.typo_text_processor import TypoProcessorText
+from fool_ai_detector.service.typo_text_processor import TypoProcessor
 
 
-class TestTypoProcessorText:
+class TestTypoProcessor:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_generator_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',
                                               'fool_ai_detector', 'resources', 'ai_gen_text', 'alpen.txt')
@@ -19,10 +19,10 @@ class TestTypoProcessorText:
         if not os.path.exists(self.output_processor_directory_path):
             os.makedirs(self.output_processor_directory_path)
 
-    def test_process(self):
+    def test_typo_process(self):
         self.set_up()
 
-        typo_processor = TypoProcessorText()
+        typo_processor = TypoProcessor()
         typo_processor.process(self.output_generator_file_path, self.output_processor_file_path)
 
         origin_text = Path(self.output_generator_file_path).read_text()
