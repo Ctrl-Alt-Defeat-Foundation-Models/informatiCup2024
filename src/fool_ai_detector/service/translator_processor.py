@@ -9,7 +9,7 @@ class TranslatorProcessor(Processor):
         """
         Translates the input file into another language and then back to english.
         """
-        text = Path(input_file_path).read_text()
+        text = Path(input_file_path).read_text(encoding="utf-8")
 
         text_parts = split_and_combine(text)
         translated_text_fr = ''
@@ -21,7 +21,7 @@ class TranslatorProcessor(Processor):
         for text_part in text_parts:
             augmented_text = augmented_text + ts.translate_text(text_part, to_language='en')
 
-        Path(output_file_path).write_text(augmented_text)
+        Path(output_file_path).write_text(augmented_text, encoding="utf-8")
 
 
 def split_and_combine(text, max_length=1000):

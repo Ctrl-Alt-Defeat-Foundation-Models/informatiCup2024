@@ -9,7 +9,7 @@ class TypoProcessorText(Processor):
         """
         Add some typos to the generated text and save it.
         """
-        text = Path(input_file_path).read_text()
+        text = Path(input_file_path).read_text(encoding="utf-8")
         augmented_text = ''
 
         text_array = text.split()
@@ -23,4 +23,4 @@ class TypoProcessorText(Processor):
             loop_invariant += 1
             augmented_text += ' '
 
-        Path(output_file_path).write_text(augmented_text)
+        Path(output_file_path).write_text(augmented_text, encoding="utf-8")
