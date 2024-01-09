@@ -11,6 +11,7 @@ class SAndPProcessor(Processor):
     """
     Salt and Pepper Processor
     """
+
     def process(self, input_file_path, output_file_path):
         """
         Adds salt and pepper noise to an image to augment it.

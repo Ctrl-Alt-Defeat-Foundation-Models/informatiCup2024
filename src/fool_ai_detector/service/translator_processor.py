@@ -11,6 +11,7 @@ class TranslatorProcessor(Processor):
     """
     Translator Processor
     """
+
     def process(self, input_file_path, output_file_path):
         """
         Translates the input file into another language and then back to english.

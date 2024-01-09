@@ -11,6 +11,7 @@ class GaussianProcessor(Processor):
     """
     Gaussian Processor
     """
+
     def process(self, input_file_path, output_file_path):
         """
         Adds gaussian noise to an image to augment it.

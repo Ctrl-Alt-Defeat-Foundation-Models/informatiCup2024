@@ -10,6 +10,7 @@ class DoubleWhitespaceProcessor(Processor):
     """
     Text processor that uses two white-spaces instead of one
     """
+
     def process(self, input_file_path, output_file_path):
         """
         Replaces every occurrence of a white-space with double white-space to augment a text.

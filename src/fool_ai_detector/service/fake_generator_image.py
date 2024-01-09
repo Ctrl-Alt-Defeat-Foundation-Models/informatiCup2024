@@ -12,6 +12,7 @@ class FakeGeneratorImage(Generator):
     """
     Fake image generator
     """
+
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     dir_path = os.path.join(base_path_this_class, '..', 'resources', 'ai_gen_images')
     images = []

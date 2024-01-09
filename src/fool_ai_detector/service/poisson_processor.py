@@ -11,6 +11,7 @@ class PoissonProcessor(Processor):
     """
     Poisson Processor
     """
+
     def process(self, input_file_path, output_file_path):
         """
         Adds poisson noise to an image to augment it.
