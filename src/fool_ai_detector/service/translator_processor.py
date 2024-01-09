@@ -20,7 +20,7 @@ class TranslatorProcessor(Processor):
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
         """
-        text = Path(input_file_path).read_text()
+        text = Path(input_file_path).read_text(encoding="utf-8")
 
         text = re.sub('["\n"]+', ' ', text)
 
@@ -34,7 +34,7 @@ class TranslatorProcessor(Processor):
         for text_part in text_parts:
             augmented_text = augmented_text + ts.translate_text(text_part, to_language='en')
 
-        Path(output_file_path).write_text(augmented_text)
+        Path(output_file_path).write_text(augmented_text, encoding="utf-8")
 
 
 def split_and_combine(text, max_length=1000):

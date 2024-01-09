@@ -18,6 +18,6 @@ class DoubleWhitespaceProcessor(Processor):
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
         """
-        text = Path(input_file_path).read_text()
+        text = Path(input_file_path).read_text(encoding="utf-8")
         augmented_text = text.replace(" ", "  ")
-        Path(output_file_path).write_text(augmented_text)
+        Path(output_file_path).write_text(augmented_text, encoding="utf-8")
