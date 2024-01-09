@@ -3,7 +3,7 @@ import os
 from fool_ai_detector.service.translator_processor import TranslatorProcessor
 
 
-class TestTranslatorProcessorText:
+class TestTranslatorProcessor:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_generator_file_path = os.path.join(base_path_this_class, '..', '..', '..', 'src',
                                               'fool_ai_detector', 'resources', 'ai_gen_text', 'alpen.txt')
@@ -18,7 +18,7 @@ class TestTranslatorProcessorText:
         if not os.path.exists(self.output_processor_directory_path):
             os.makedirs(self.output_processor_directory_path)
 
-    def test_process(self):
+    def test_translator_process(self):
         self.set_up()
 
         translator_processor = TranslatorProcessor()
