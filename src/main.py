@@ -2,7 +2,7 @@ import typer
 import os
 import shutil
 from typing import Optional
-from pathlib import Path
+
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 from fool_ai_detector.service.falcon_text_generator import FalconRW1BTextGenerator
@@ -56,6 +56,7 @@ def generate(generator: str, output_file_path: str):
 @app.command()
 def process(processor: str, input_file: str, output_file: str):
     processors = processor.split("-")
+    shutil.copy(input_file, output_file)
     for current_processor in processors:
         match current_processor:
             case "double_whitespace_processor_text":
@@ -82,14 +83,13 @@ def process(processor: str, input_file: str, output_file: str):
             case _:
                 typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
                 raise typer.Exit()
-    if (input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and processor.endswith('image'):
-        processor_model.process(input_file, output_file)
-    elif input_file.endswith('txt') and processor.endswith('text'):
-        processor_model.process(input_file, output_file)
-    else:
-        typer.secho("The format of the file is not consistent with the format of the processor", err=True,
-                    fg=typer.colors.RED)
-        raise typer.Exit()
+        if ((input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg'))
+                and processor.endswith('image')) or (input_file.endswith('txt') and processor.endswith('text')):
+            processor_model.process(output_file, output_file)
+        else:
+            typer.secho("The format of the file is not consistent with the format of the processor", err=True,
+                        fg=typer.colors.RED)
+            raise typer.Exit()
 
 
 @app.command()
@@ -139,6 +139,7 @@ def pipeline(generator: str, processor: str, evaluator: str,
         process_for_pipeline(current_processor, content)
 
         evaluate_for_pipeline(evaluator, generator, current_processor, content, number_of_runthroughs)
+
 
 def evaluate_for_pipeline(evaluator, generator, processor, images, number_of_runthroughs_param):
     """
