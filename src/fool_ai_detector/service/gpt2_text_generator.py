@@ -11,7 +11,7 @@ from fool_ai_detector.model.generator import Generator
 
 class GPT2TextGenerator(Generator):
     """
-    Base class for a Generator
+    GPT2 Generator
     """
 
     def generate(self, output_file_path, prompt="Generate a random text"):
@@ -20,6 +20,7 @@ class GPT2TextGenerator(Generator):
 
         :param prompt: Prompt to generate the text from
         :param output_file_path: Path, where the generated text is saved
+        :param prompt: Prompt to generate the text from
         """
         if torch.cuda.is_available():
             pipe = pipeline("text-generation", model="gpt2-large", max_length=514, pad_token_id=50256, device=0)

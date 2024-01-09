@@ -1,11 +1,13 @@
-from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 import os
+
+from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 
 
 class TestFakeGeneratorText:
     base_path_this_class = os.path.dirname(os.path.abspath(__file__))
     output_dir_path = os.path.join(base_path_this_class, '..', '..', 'test_output', 'fake_generator_texts')
-    output_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output', 'fake_generator_texts', 'generated_text.txt')
+    output_file_path = os.path.join(base_path_this_class, '..', '..', 'test_output', 'fake_generator_texts',
+                                    'generated_text.txt')
 
     def set_up(self):
         """
@@ -14,7 +16,7 @@ class TestFakeGeneratorText:
         if not os.path.exists(self.output_dir_path):
             os.makedirs(self.output_dir_path)
 
-    def test_normal_generation(self):
+    def test_fake_generator_text_generation(self):
         self.set_up()
         self.clear_test_output()
 

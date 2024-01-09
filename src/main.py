@@ -2,24 +2,25 @@ import typer
 import os
 import shutil
 from typing import Optional
-from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
+
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
-from fool_ai_detector.service.nahrawy_image_evaluator import NahrawyEvaluator
-from fool_ai_detector.service.naive_baseline_processor_image import NaiveBaselineProcessorImage
-from fool_ai_detector.service.naive_baseline_processor_text import NaiveBaselineProcessorText
-from fool_ai_detector.service.radar_text_evaluator import RadarEvaluator
-from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
-from fool_ai_detector.service.translator_processor import TranslatorProcessor
-from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
+from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
+from fool_ai_detector.service.fake_generator_image import FakeGeneratorImage
 from fool_ai_detector.service.stable_diffusion_image_generator import StableDiffusionImageGenerator
 from fool_ai_detector.service.dalle_image_generator import DalleImageGenerator
-from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
-from fool_ai_detector.service.typo_text_processor import TypoProcessorText
+from fool_ai_detector.service.double_whitespace_processor_text import DoubleWhitespaceProcessor
+from fool_ai_detector.service.typo_text_processor import TypoProcessor
+from fool_ai_detector.service.translator_processor import TranslatorProcessor
+from fool_ai_detector.service.gaussian_processor import GaussianProcessor
 from fool_ai_detector.service.poisson_processor import PoissonProcessor
-from fool_ai_detector.service.sandp_processor import SAndPProcessor
+from fool_ai_detector.service.s_and_p_processor import SAndPProcessor
 from fool_ai_detector.service.speckle_processor import SpeckleProcessor
+from fool_ai_detector.service.roberta_base_openai_evaluator import RobertaBaseEvaluator
+from fool_ai_detector.service.radar_text_evaluator import RadarEvaluator
+from fool_ai_detector.service.umm_maybe_ai_image_evaluator import UmmMaybeEvaluator
+from fool_ai_detector.service.nahrawy_image_evaluator import NahrawyEvaluator
 from fool_ai_detector.service.resnet18_evaluator import Resnet18Evaluator
-from fool_ai_detector.service.CSVWriter import CSVWriter
+from fool_ai_detector.service.csv_writer import CSVWriter
 
 app = typer.Typer()
 
@@ -30,16 +31,16 @@ def generate(generator: str, output_file_path: str):
         case "fake_generator_text":
             typer.echo("Using fake_generator_text")
             generator_model = FakeGeneratorText()
+        case "gpt2_generator_text":
+            typer.echo("Using GPT2 text generator")
+            generator_model = GPT2TextGenerator()
         case "fake_generator_image":
             typer.echo("Using fake_generator_image")
             generator_model = FakeGeneratorImage()
-        case ("stable_diffusion_generator_image"):
+        case "stable_diffusion_generator_image":
             typer.echo("Using stable_diffusion_generator")
             generator_model = StableDiffusionImageGenerator()
-        case("gpt2_generator_text"):
-            typer.echo("Using GPT2 text generator")
-            generator_model = GPT2TextGenerator()
-        case("dallE_generator_image"):
+        case "dallE_generator_image":
             typer.echo("Using DallE image generator")
             generator_model = DalleImageGenerator()
         case _:
@@ -53,36 +54,36 @@ def process(processor: str, input_file: str, output_file: str):
     processors = processor.split("-")
     for current_processor in processors:
         match current_processor:
-            case "naive_processor_image":
-                typer.echo("Using naive_baseline_processor_image")
-                processor_model = NaiveBaselineProcessorImage()
-            case "naive_processor_text":
-                typer.echo("Using naive_baseline_processor_text")
-                processor_model = NaiveBaselineProcessorText()
+            case "double_whitespace_processor_text":
+                typer.echo("Using double_whitespace_processor")
+                processor_model = DoubleWhitespaceProcessor()
             case "typo_processor_text":
                 typer.echo("Using typo_text_processor")
-                processor_model = TypoProcessorText()
+                processor_model = TypoProcessor()
+            case "translator_processor_text":
+                typer.echo("Using translator_processor")
+                processor_model = TranslatorProcessor()
+            case "gaussian_processor_image":
+                typer.echo("Using gaussian_processor_image")
+                processor_model = GaussianProcessor()
             case "poisson_processor_image":
                 typer.echo("Using poisson_processor")
                 processor_model = PoissonProcessor()
             case "s_and_p_processor_image":
                 typer.echo("Using s&p_processor")
                 processor_model = SAndPProcessor()
-            case "translator_processor_text":
-                typer.echo("Using translator_processor")
-                processor_model = TranslatorProcessor()
             case "speckle_processor_image":
                 typer.echo("Using speckle_processor")
                 processor_model = SpeckleProcessor()
             case _:
                 typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
                 raise typer.Exit()
-    if (input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and processor.endswith('image'):
-        processor_model.process(input_file, output_file)
-    elif input_file.endswith('txt') and processor.endswith('text'):
+    if ((input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and
+            processor.endswith('image') or (input_file.endswith('txt') and processor.endswith('text'))):
         processor_model.process(input_file, output_file)
     else:
-        typer.secho("The format of the file is not consistent with the format of the processor", err=True, fg=typer.colors.RED)
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True,
+                    fg=typer.colors.RED)
         raise typer.Exit()
 
 
@@ -107,29 +108,25 @@ def evaluate(evaluator: str, input_file_path: str):
         case _:
             typer.secho("Error given evaluator not available", err=True, fg=typer.colors.RED)
             raise typer.Exit()
-    if (input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg')) and evaluator.endswith('image'):
+    if ((input_file_path.endswith('png') or input_file_path.endswith('jpg') or input_file_path.endswith('jpeg')) and
+            evaluator.endswith('image') or (input_file_path.endswith('txt') and evaluator.endswith('text'))):
         is_fake = evaluator_model.evaluate(input_file_path)
         if is_fake:
-            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
-            return True
-        else:
-            typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
-            return False
-    elif input_file_path.endswith('txt') and evaluator.endswith('text'):
-        is_fake = evaluator_model.evaluate(input_file_path)
-        if is_fake:
-            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN, bold=True)
+            typer.secho("---> This " + input_file_path[11:-4] + " is generated", fg=typer.colors.BRIGHT_GREEN,
+                        bold=True)
             return True
         else:
             typer.secho("---> This " + input_file_path[11:-4] + " is not generated", fg=typer.colors.GREEN, bold=True)
             return False
     else:
-        typer.secho("The format of the file is not consistent with the format of the evaluator", err=True, fg=typer.colors.RED)
+        typer.secho("The format of the file is not consistent with the format of the evaluator", err=True,
+                    fg=typer.colors.RED)
         raise typer.Exit()
 
 
 @app.command()
-def pipeline(generator: str, processor: str, evaluator: str, number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
+def pipeline(generator: str, processor: str, evaluator: str,
+             number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
     images = generate_images_for_pipeline(generator, number_of_runthroughs)
 
     processors = processor.split("/")
@@ -173,11 +170,11 @@ def evaluate_images_for_pipeline(evaluator, generator, processor, images, number
 
         csv_writer.write_to_csv()
         typer.secho(
-            current_evaluator + ": Before processing: " + str(number_of_detections_before_process) + " out of " + str(
-                number_of_runthroughs_param) + " were detected as generated.", fg=typer.colors.CYAN)
+            current_evaluator + ": Before processing: " + str(number_of_detections_before_process) + " out of " +
+            str(number_of_runthroughs_param) + " were detected as generated.", fg=typer.colors.CYAN)
         typer.secho(
-            current_evaluator + ": After processing: " + str(number_of_detections_after_process) + " out of " + str(
-                number_of_runthroughs_param) + " were detected as generated.", fg=typer.colors.CYAN)
+            current_evaluator + ": After processing: " + str(number_of_detections_after_process) + " out of " +
+            str(number_of_runthroughs_param) + " were detected as generated.", fg=typer.colors.CYAN)
 
 
 def process_images_for_pipeline(processor, images):
@@ -226,6 +223,7 @@ def generate_images_for_pipeline(generator, number_of_runthroughs_param):
             print("UnicodeEncodeError, ignore this run!")
 
     return ret_images
+
 
 if __name__ == "__main__":
     app()
