@@ -4,19 +4,19 @@ LUGGAS
 					poisson_processor_image/👍   30
 					s_and_p_processor_image/👍   30
 					speckle_processor_image/👍   30
-					naive_processor_image-poisson_processor_image/❌
-					naive_processor_image-s_and_p_processor_image/❌
-					naive_processor_image-speckle_processor_image/❌
-					poisson_processor_image-s_and_p_processor_image/❌
-					poisson_processor_image-speckle_processor_image/❌
-					s_and_p_processor_image-speckle_processor_image/❌
-					naive_processor_image-poisson_processor_image-s_and_p_processor_image/❌
-					naive_processor_image-poisson_processor_image-speckle_processor_image/❌
-					naive_processor_image-s_and_p_processor_image-speckle_processor_image/❌
-					poisson_processor_image-s_and_p_processor_image-speckle_processor_image/❌
-					naive_processor_image-poisson_processor_image-s_and_p_processor_image-speckle_processor_image ❌
-																	umm_maybe_evaluator_image-resnet18_evaluator_image-nahrawy_evaluator_image 30
-DONE:
+					naive_processor_image-poisson_processor_image/👍
+					naive_processor_image-s_and_p_processor_image/👍
+					naive_processor_image-speckle_processor_image/👍
+					poisson_processor_image-s_and_p_processor_image/👍
+					poisson_processor_image-speckle_processor_image/👍
+					s_and_p_processor_image-speckle_processor_image/👍
+					naive_processor_image-poisson_processor_image-s_and_p_processor_image/👍
+					naive_processor_image-poisson_processor_image-speckle_processor_image/👍
+					naive_processor_image-s_and_p_processor_image-speckle_processor_image/👍
+					poisson_processor_image-s_and_p_processor_image-speckle_processor_image/👍
+					naive_processor_image-poisson_processor_image-s_and_p_processor_image-speckle_processor_image 👍
+																	umm_maybe_evaluator_image-resnet18_evaluator_image-nahrawy_evaluator_image  30
+DONE:👍
 
 open
 !fad pipeline stable_diffusion_generator_image	
