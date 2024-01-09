@@ -18,7 +18,7 @@ LUGGAS
 																	umm_maybe_evaluator_image-resnet18_evaluator_image-nahrawy_evaluator_image 30👍 + 20
 DONE:
 
-RAPHA
+open
 !fad pipeline stable_diffusion_generator_image	
 					naive_processor_image/
 					poisson_processor_image/
