@@ -3,6 +3,7 @@ Text processor based on the idea of translating a text into another language and
 """
 from pathlib import Path
 import translators as ts
+import re
 
 from fool_ai_detector.model.processor import Processor
 
@@ -20,6 +21,8 @@ class TranslatorProcessor(Processor):
         :param output_file_path: path where the processed file should be saved
         """
         text = Path(input_file_path).read_text()
+
+        text = re.sub('["\n"]+', ' ', text)
 
         text_parts = split_and_combine(text)
         translated_text_fr = ''
