@@ -97,9 +97,8 @@ def plot_overview_pipeline_new(data, group_by_param):
     plot.ylabel('Amount')
     plot.xlabel('Processors & Evaluators')
     plot.title(
-        'Overview over multiple combination_pipeline \n (gaussian/poisson/s_and_p/speckle = 1/2/3/4, umm_maybe/resnet/nahrawy = 1/2/3)')
-    # plt.title('Overview over multiple combination_pipeline \n ("  "/typo = 1/2, roberta/radar = 1/2)')
-    plot.xticks(x_location, combination_pipeline)
+        'Overview over multiple combination_pipeline \n (gaussian/poisson/s_and_p/speckle = 1/2/3/4, umm_maybe/resnet/nahrawy = 1/2/3)', fontdict={"fontsize": 40}, pad=20)
+    plot.xticks(x_location, combination_pipeline, rotation='vertical')
     plot.legend((p1[0], p2[0], p3[0], p4[0]), categories)
 
     plot.show()
