@@ -2,7 +2,7 @@ import typer
 import os
 import shutil
 from typing import Optional
-
+from pathlib import Path
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 from fool_ai_detector.service.falcon_text_generator import FalconRW1BTextGenerator
@@ -82,8 +82,9 @@ def process(processor: str, input_file: str, output_file: str):
             case _:
                 typer.secho("Error given processor not available", err=True, fg=typer.colors.RED)
                 raise typer.Exit()
-    if ((input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and
-            processor.endswith('image') or (input_file.endswith('txt') and processor.endswith('text'))):
+    if (input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg')) and processor.endswith('image'):
+        processor_model.process(input_file, output_file)
+    elif input_file.endswith('txt') and processor.endswith('text'):
         processor_model.process(input_file, output_file)
     else:
         typer.secho("The format of the file is not consistent with the format of the processor", err=True,
@@ -131,16 +132,15 @@ def evaluate(evaluator: str, input_file_path: str):
 @app.command()
 def pipeline(generator: str, processor: str, evaluator: str,
              number_of_runthroughs: Optional[int] = typer.Argument(default=1)):
-    images = generate_images_for_pipeline(generator, number_of_runthroughs)
+    content = generate_images_for_pipeline(generator, number_of_runthroughs)
 
     processors = processor.split("/")
     for current_processor in processors:
-        process_images_for_pipeline(current_processor, images)
+        process_for_pipeline(current_processor, content)
 
-        evaluate_images_for_pipeline(evaluator, generator, current_processor, images, number_of_runthroughs)
+        evaluate_for_pipeline(evaluator, generator, current_processor, content, number_of_runthroughs)
 
-
-def evaluate_images_for_pipeline(evaluator, generator, processor, images, number_of_runthroughs_param):
+def evaluate_for_pipeline(evaluator, generator, processor, images, number_of_runthroughs_param):
     """
     This method evaluates for every evaluator the original and the processed kind of image
     :param evaluator: all evaluators seperated with "-"
@@ -181,14 +181,14 @@ def evaluate_images_for_pipeline(evaluator, generator, processor, images, number
             str(number_of_runthroughs_param) + " were detected as generated.", fg=typer.colors.CYAN)
 
 
-def process_images_for_pipeline(processor, images):
+def process_for_pipeline(processor, content_param):
     """
-    This Method processes all images
+    This Method processes all content
     :param processor: all processors the author wants combined with "-"
-    :param images: all images as Tuples, (index_0 = unprocessed, index_1 = processed)
+    :param content_param: all content as Tuples, (index_0 = unprocessed, index_1 = processed)
     """
-    for image in images:
-        process(processor, image[0], image[1])
+    for content in content_param:
+        process(processor, content[0], content[1])
 
 
 def generate_images_for_pipeline(generator, number_of_runthroughs_param):
