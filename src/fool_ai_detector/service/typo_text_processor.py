@@ -1,6 +1,8 @@
 """
 Processor based on the idea of making mistakes while typing (typo)
 """
+import math
+import random
 from pathlib import Path
 import typo
 
@@ -24,11 +26,35 @@ class TypoProcessor(Processor):
         augmented_text = ''
 
         text_array = text.split()
+        number_words = len(text_array)
+        five_percentage = number_words/100 * 5
+        five_percentage = math.ceil(five_percentage)
+        number_mistakes = random.sample(range(0, number_words), five_percentage)
         loop_invariant = 0
         for word in text_array:
-            if loop_invariant % words_per_error == 0:
+            if loop_invariant in number_mistakes:
+                type_of_error = random.randint(0, 8)
                 error_string = typo.StrErrer(word, seed=31)
-                augmented_text += error_string.nearby_char(preservelast=True, preservefirst=True).result
+                match type_of_error:
+                    case 0:
+                        augmented_text += error_string.nearby_char(preservelast=True, preservefirst=True).result
+                    case 1:
+                        augmented_text += error_string.char_swap(preservelast=False, preservefirst=False).result
+                    case 2:
+                        augmented_text += error_string.missing_char(preservelast=False, preservefirst=True).result
+                    case 3:
+                        augmented_text += error_string.extra_char(preservelast=False, preservefirst=True).result
+                    case 4:
+                        augmented_text += error_string.similar_char().result
+                    case 5:
+                        augmented_text += error_string.skipped_char().result
+                    case 6:
+                        augmented_text += error_string.random_space().result
+                    case 7:
+                        augmented_text += error_string.repeated_char().result
+                    case 8:
+                        augmented_text += error_string.unichar().result
+
             else:
                 augmented_text += word
             loop_invariant += 1
