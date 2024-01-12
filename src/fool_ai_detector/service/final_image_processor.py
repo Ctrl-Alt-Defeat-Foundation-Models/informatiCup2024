@@ -9,7 +9,7 @@ from fool_ai_detector.model.processor import Processor
 
 class FinalImageProcessor(Processor):
     """
-    Image processor, that combines ...
+    Image processor that uses...
     - [Processor 1]
     - [Processor 2]
     - ...
@@ -17,7 +17,7 @@ class FinalImageProcessor(Processor):
 
     def process(self, input_file_path, output_file_path):
         """
-        Applies the best processors to an image to augment it.
+        Augments an image by ...
 
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
