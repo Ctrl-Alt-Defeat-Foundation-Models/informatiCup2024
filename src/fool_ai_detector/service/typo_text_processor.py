@@ -47,7 +47,7 @@ class TypoProcessor(Processor):
                     case 4:
                         augmented_text += error_string.similar_char().result
                     case 5:
-                        augmented_text += error_string.skipped_char().result
+                        augmented_text += error_string.skipped_space().result
                     case 6:
                         augmented_text += error_string.random_space().result
                     case 7:
