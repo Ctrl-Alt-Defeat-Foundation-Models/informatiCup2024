@@ -3,6 +3,8 @@ import os
 import shutil
 from typing import Optional
 
+from fool_ai_detector.service.final_text_processor import FinalTextProcessor
+
 from fool_ai_detector.service.fake_generator_text import FakeGeneratorText
 from fool_ai_detector.service.gpt2_text_generator import GPT2TextGenerator
 from fool_ai_detector.service.falcon_text_generator import FalconRW1BTextGenerator
@@ -54,7 +56,7 @@ def generate(generator: str, output_file_path: str):
 
 
 @app.command()
-def process(processor: str, input_file: str, output_file: str):
+def process_specific_processor(processor: str, input_file: str, output_file: str):
     processors = processor.split("-")
     shutil.copy(input_file, output_file)
     for current_processor in processors:
@@ -90,6 +92,22 @@ def process(processor: str, input_file: str, output_file: str):
             typer.secho("The format of the file is not consistent with the format of the processor", err=True,
                         fg=typer.colors.RED)
             raise typer.Exit()
+
+
+@app.command()
+def process(input_file: str, output_file: str):
+    if not os.path.isabs(input_file):
+        input_file = os.path.join(os.getcwd(), "src", input_file)
+    if not os.path.isabs(output_file):
+        output_file = os.path.join(os.getcwd(), "src", output_file)
+    if input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg'):
+        GaussianProcessor().process(input_file, output_file)
+    elif input_file.endswith('txt'):
+        FinalTextProcessor().process(input_file, output_file)
+    else:
+        typer.secho("The format of the file is not consistent with the format of the processor", err=True,
+                    fg=typer.colors.RED)
+        raise typer.Exit()
 
 
 @app.command()
@@ -189,7 +207,7 @@ def process_for_pipeline(processor, content_param):
     :param content_param: all content as Tuples, (index_0 = unprocessed, index_1 = processed)
     """
     for content in content_param:
-        process(processor, content[0], content[1])
+        process_specific_processor(processor, content[0], content[1])
 
 
 def generate_images_for_pipeline(generator, number_of_runthroughs_param):
