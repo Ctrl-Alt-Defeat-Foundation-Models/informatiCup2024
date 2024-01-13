@@ -103,7 +103,7 @@ def process(input_file: str, output_file: str):
     if input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg'):
         FinalImageProcessor().process(input_file, output_file)
     elif input_file.endswith('txt'):
-        DoubleWhitespaceProcessor().process(input_file, output_file)
+        DoubleWhitespaceProcessor().process(input_file, output_file) # only dummy value, since there is an extra branch for it
     else:
         typer.secho("The format of the file is not consistent with the format of the processor", err=True,
                     fg=typer.colors.RED)
