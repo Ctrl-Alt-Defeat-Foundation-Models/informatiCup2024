@@ -1,6 +1,11 @@
 from datetime import datetime
 import csv
+
+
 class CSVWriter:
+    """
+    CSVWriter class
+    """
     current_date_time = ""
     pipeline_generator = ""
     pipeline_processors = ""
@@ -15,6 +20,7 @@ class CSVWriter:
     def __init__(self, generator, processors, evaluator, text_or_image, runs):
         """
         Constructor for CSV Writer
+
         :param generator: the generator used
         :param processors: the processors used
         :param evaluator: the evaluator used
@@ -30,29 +36,29 @@ class CSVWriter:
 
     def increase_human_human(self):
         """
-        This Method increases the variable that counts the times that the original image and the processesed image
+        This Method increases the variable that counts the times that the original image and the processed image
         came to the result that it was human-generated
         """
         self.human_human = self.human_human + 1
 
     def increase_ai_ai(self):
         """
-        This Method increases the variable that counts the times that the original image and the processesed image
+        This Method increases the variable that counts the times that the original image and the processed image
         came to the result that it was AI-generated
         """
         self.ai_ai = self.ai_ai + 1
 
     def increase_human_ai(self):
         """
-        This Method increases the variable that counts the times that the original image was human-generated and the processed image
-        was AI-generated
+        This Method increases the variable that counts the times that the original image was human-generated and the
+        processed image was AI-generated
         """
         self.human_ai = self.human_ai + 1
 
     def increase_ai_human(self):
         """
-        This Method increases the variable that counts the times that the original image was AI-generated and the processed image
-        was human-generated
+        This Method increases the variable that counts the times that the original image was AI-generated and the
+        processed image was human-generated
         """
         self.ai_human = self.ai_human + 1
 

@@ -15,7 +15,7 @@ class TestStableDiffusionImageGenerator:
         if not os.path.exists(self.output_file_path):
             os.makedirs(self.output_file_path)
 
-    def test_normal_generation(self):
+    def test_stable_diffusion_generation(self):
         self.set_up()
         self.clear_test_output()
 
