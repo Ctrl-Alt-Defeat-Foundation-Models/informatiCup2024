@@ -57,9 +57,9 @@ def generate(generator: str, output_file_path: str):
 @app.command()
 def process(input_file: str, output_file: str, processor: Annotated[Optional[str], typer.Option()] = None):
     if not os.path.isabs(input_file):
-        input_file = os.path.join(os.getcwd(), "src", input_file)
+        input_file = os.path.join(os.getcwd(), input_file)
     if not os.path.isabs(output_file):
-        output_file = os.path.join(os.getcwd(), "src", output_file)
+        output_file = os.path.join(os.getcwd(), output_file)
     if processor is None:
         if input_file.endswith('png') or input_file.endswith('jpg') or input_file.endswith('jpeg'):
             GaussianProcessor().process(input_file, output_file)
