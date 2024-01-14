@@ -14,7 +14,7 @@ class TypoProcessor(Processor):
     Typo Processor
     """
 
-    def process(self, input_file_path, output_file_path, mistake_percentage=5):
+    def process(self, input_file_path, output_file_path, mistake_percentage=15):
         """
         Add some typos to the generated text and saves it.
 
