@@ -21,7 +21,7 @@ fad process INPUT_FILE_PATH OUTPUT_FILE_PATH --processor PROCESSOR_NAME [OPTIONA
 
 So a simple example would be:
 ```shell
-fad process fool_ai_detector/resources/ai_gen_images/berries.jpg fool_ai_detector/resources/ai_gen_images/processed_berries.png
+fad process src/fool_ai_detector/resources/ai_gen_images/berries.jpg src/fool_ai_detector/resources/ai_gen_images/processed_berries.png
 ```
 
 Types of models for the different tasks(generate/process/evaluate) can be listed with: 
