@@ -20,7 +20,7 @@ class TypoProcessor(Processor):
 
         :param input_file_path: path to the file, that should be processed
         :param output_file_path: path where the processed file should be saved
-        :param mistake_percentage: percentage of mistakes in the sentence
+        :param mistake_percentage: percentage of mistakes in the text
         """
         text = Path(input_file_path).read_text(encoding="utf-8")
         augmented_text = ''
