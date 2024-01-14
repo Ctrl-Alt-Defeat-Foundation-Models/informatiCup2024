@@ -1,0 +1,63 @@
+LUGGAS
+!fad pipeline dallE_generator_image
+					naive_processor_image/👍     30
+					poisson_processor_image/👍   30
+					s_and_p_processor_image/👍   30
+					speckle_processor_image/👍   30
+					naive_processor_image-poisson_processor_image/👍
+					naive_processor_image-s_and_p_processor_image/👍
+					naive_processor_image-speckle_processor_image/👍
+					poisson_processor_image-s_and_p_processor_image/👍
+					poisson_processor_image-speckle_processor_image/👍
+					s_and_p_processor_image-speckle_processor_image/👍
+					naive_processor_image-poisson_processor_image-s_and_p_processor_image/👍
+					naive_processor_image-poisson_processor_image-speckle_processor_image/👍
+					naive_processor_image-s_and_p_processor_image-speckle_processor_image/👍
+					poisson_processor_image-s_and_p_processor_image-speckle_processor_image/👍
+					naive_processor_image-poisson_processor_image-s_and_p_processor_image-speckle_processor_image 👍
+																	umm_maybe_evaluator_image-resnet18_evaluator_image-nahrawy_evaluator_image  30
+DONE:👍
+
+open
+!fad pipeline stable_diffusion_generator_image	
+					naive_processor_image/👍     100(nsfw)
+					poisson_processor_image/👍   100(nsfw)
+					s_and_p_processor_image/👍   100(nsfw)
+					speckle_processor_image/👍   100(nsfw)
+					naive_processor_image-poisson_processor_image/❌
+					naive_processor_image-s_and_p_processor_image/❌
+					naive_processor_image-speckle_processor_image/❌
+					poisson_processor_image-s_and_p_processor_image/❌
+					poisson_processor_image-speckle_processor_image/❌
+					s_and_p_processor_image-speckle_processor_image/❌
+					naive_processor_image-poisson_processor_image-s_and_p_processor_image/❌
+					naive_processor_image-poisson_processor_image-speckle_processor_image/❌
+					naive_processor_image-s_and_p_processor_image-speckle_processor_image/❌
+					poisson_processor_image-s_and_p_processor_image-speckle_processor_image/❌
+					naive_processor_image-poisson_processor_image-s_and_p_processor_image-speckle_processor_image ❌
+																	umm_maybe_evaluator_image-resnet18_evaluator_image-nahrawy_evaluator_image 100
+DONE:
+
+MAX
+!fad pipeline gpt2_generator_text 
+					double_whitespace_processor_text/👍  300
+					typo_processor_text/👍   300
+					                                                                            translator_processor_text/
+					double_whitespace_processor_text-typo_processor_text/👍   100
+                                                                                                double_whitespace_processor_text-translator_processor_text/
+                                                                                                typo_processor_text-translator_processor_text/
+                                                                                                double_whitespace_processor_text-typo_processor_text-translator_processor_text
+				                                                    roberta_evaluator_text-radar_evaluator_text 100 + 100
+DONE: 👍
+
+MAX
+!fad pipeline falcon_generator_text
+					double_whitespace_processor_text/👍  100
+					typo_processor_text/👍   100
+					                                                                            translator_processor_text/
+					double_whitespace_processor_text-typo_processor_text/👍
+                                                                                                double_whitespace_processor_text-translator_processor_text/
+                                                                                                typo_processor_text-translator_processor_text/
+                                                                                                double_whitespace_processor_text-typo_processor_text-translator_processor_text
+					                                                roberta_evaluator_text-radar_evaluator_text 100 + 100
+DONE:👍
