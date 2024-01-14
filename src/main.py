@@ -26,8 +26,16 @@ from fool_ai_detector.service.csv_writer import CSVWriter
 
 app = typer.Typer()
 
+image_generator_list = ["fake_generator_image", "stable_diffusion_generator_image", "dallE_generator_image"]
+text_generator_list = ["fake_generator_text", "gpt2_generator_text", "falcon_generator_text"]
+image_processor_list = ["gaussian_processor_image", "poisson_processor_image", "s_and_p_processor_image",
+                        "speckle_processor_image"]
+text_processor_list = ["double_whitespace_processor_text", "typo_processor_text", "translator_processor_text"]
+image_evaluator_list = ["umm_maybe_evaluator_image", "nahrawy_evaluator_image", "resnet18_evaluator_image"]
+text_evaluator_list = ["roberta_evaluator_text", "radar_evaluator_text"]
 
-@app.command()
+
+@app.command(help="Generates a text or an image")
 def generate(generator: str, output_file_path: str):
     match generator:
         case "fake_generator_text":
@@ -54,7 +62,7 @@ def generate(generator: str, output_file_path: str):
     generator_model.generate(output_file_path)
 
 
-@app.command()
+@app.command(help="Processes a generated text or image")
 def process(input_file: str, output_file: str, processor: Annotated[Optional[str], typer.Option()] = None):
     if not os.path.isabs(input_file):
         input_file = os.path.join(os.getcwd(), input_file)
@@ -104,7 +112,7 @@ def process(input_file: str, output_file: str, processor: Annotated[Optional[str
             raise typer.Exit()
 
 
-@app.command()
+@app.command(help="Evaluates whether or not a text or an image is generated")
 def evaluate(evaluator: str, input_file_path: str):
     match evaluator:
         case "roberta_evaluator_text":
@@ -240,6 +248,42 @@ def generate_images_for_pipeline(generator, number_of_runthroughs_param):
             print("UnicodeEncodeError, ignore this run!")
 
     return ret_images
+
+
+@app.command(help="Lists all possible inputs for the commands")
+def command_list(command: str, image: bool):
+    list_display = []
+    if image:
+        text_display = "Possible inputs for image "
+        match command:
+            case "generate":
+                list_display = image_generator_list
+                text_display += "generators:\n"
+            case "process":
+                list_display = image_processor_list
+                text_display += "processors:\n"
+            case "evaluate":
+                list_display = image_evaluator_list
+                text_display += "evaluators:\n"
+            case _:
+                typer.secho("Error: No such operation.", err=True, fg=typer.colors.RED)
+    else:
+        text_display = "Possible inputs for text "
+        match command:
+            case "generate":
+                list_display = text_generator_list
+                text_display += "generators:\n"
+            case "process":
+                list_display = text_processor_list
+                text_display += "processors:\n"
+            case "evaluate":
+                list_display = text_evaluator_list
+                text_display += "evaluators:\n"
+            case _:
+                typer.secho("Error: No such operation.", err=True, fg=typer.colors.RED)
+
+    typer.echo(text_display)
+    typer.echo(list_display)
 
 
 if __name__ == "__main__":
